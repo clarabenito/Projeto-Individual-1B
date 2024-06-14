@@ -93,46 +93,49 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 async function confirmarReserva() {
-    // Pegue os dados salvos
-    const sala = localStorage.getItem('salaSelecionada');
-    const data = localStorage.getItem('dataSelecionada');
-    const horario = localStorage.getItem('horarioSelecionado');
-    let userId = localStorage.getItem('userId');
-
-    if (!userId) {
-        alert('Usuário de teste não encontrado!');
-        return;
-    }
-
-    // Valida se a sala existe
-    const roomId = mapaSalas[sala];
-    if (!roomId) {
-        alert('Sala inválida!');
-        return;
-    }
-
-    // Monta a data/hora de início e fim
-    const ano = new Date().getFullYear();
-    const mes = String(new Date().getMonth() + 1).padStart(2, '0');
-    const dia = String(data).padStart(2, '0');
-    const [h, m] = horario.split(':');
-    const horaInicio = Number(h);
-    const horaFim = horaInicio + 1;
-    const horaInicioStr = String(horaInicio).padStart(2, '0');
-    const horaFimStr = String(horaFim).padStart(2, '0');
-    
-    // Cria as datas no formato correto para o banco
-    const dataInicio = `${ano}-${mes}-${dia}T${horaInicioStr}:${m}:00.000Z`;
-    const dataFim = `${ano}-${mes}-${dia}T${horaFimStr}:${m}:00.000Z`;
-    // Log para depuração
-    console.log('Reserva:', {
-        user_id: userId,
-        room_id: roomId,
-        data_inicio: dataInicio,
-        data_fim: dataFim
-    });
-
     try {
+        // Pegue os dados salvos
+        const sala = localStorage.getItem('salaSelecionada');
+        const data = localStorage.getItem('dataSelecionada');
+        const horario = localStorage.getItem('horarioSelecionado');
+        let userId = localStorage.getItem('userId');
+
+        console.log('Dados da reserva:', { sala, data, horario, userId });
+
+        if (!userId) {
+            alert('Usuário de teste não encontrado!');
+            return;
+        }
+
+        // Valida se a sala existe
+        const roomId = mapaSalas[sala];
+        if (!roomId) {
+            alert('Sala inválida!');
+            return;
+        }
+
+        // Monta a data/hora de início e fim
+        const ano = new Date().getFullYear();
+        const mes = String(new Date().getMonth() + 1).padStart(2, '0');
+        const dia = String(data).padStart(2, '0');
+        const [h, m] = horario.split(':');
+        const horaInicio = Number(h);
+        const horaFim = horaInicio + 1;
+        const horaInicioStr = String(horaInicio).padStart(2, '0');
+        const horaFimStr = String(horaFim).padStart(2, '0');
+        
+        // Cria as datas no formato correto para o banco
+        const dataInicio = `${ano}-${mes}-${dia}T${horaInicioStr}:${m}:00.000Z`;
+        const dataFim = `${ano}-${mes}-${dia}T${horaFimStr}:${m}:00.000Z`;
+        
+        // Log para depuração
+        console.log('Dados da reserva formatados:', {
+            user_id: userId,
+            room_id: roomId,
+            data_inicio: dataInicio,
+            data_fim: dataFim
+        });
+
         const response = await fetch('/api/bookings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -144,14 +147,17 @@ async function confirmarReserva() {
             })
         });
 
+        console.log('Resposta do servidor:', response.status, response.statusText);
+
         if (response.ok) {
             window.location.href = '/sucesso';
         } else {
             const error = await response.json();
+            console.error('Erro detalhado:', error);
             alert(`Erro ao salvar reserva: ${error.detalhe || 'Erro desconhecido'}`);
         }
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro ao salvar reserva:', error);
         alert('Erro ao salvar reserva. Tente novamente.');
     }
 }

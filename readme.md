@@ -110,6 +110,16 @@ O sistema utiliza PostgreSQL como banco de dados. As tabelas principais são:
    npm start
    ```
 
+## Populando o banco de dados com dados iniciais
+
+Após rodar as migrações, execute o script de seed para criar o usuário de teste e as salas com os UUIDs corretos:
+```bash
+node scripts/seed.js
+```
+Isso garante que o sistema funcione corretamente, pois os UUIDs das salas precisam ser exatamente os mesmos do mapeamento usado no código.
+
+Se as salas não estiverem com os UUIDs corretos, o sistema não conseguirá salvar reservas.
+
 ## API Endpoints
 
 ### Usuários

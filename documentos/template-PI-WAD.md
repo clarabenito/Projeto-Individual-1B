@@ -26,6 +26,17 @@
 - O fluxo de reserva está 100% integrado ao banco de dados local.
 - O README foi atualizado para instruções de uso local e fluxo real.
 
+## Observação importante sobre funcionamento e dados iniciais
+
+- O sistema depende de UUIDs específicos para as salas, conforme o mapeamento no código.
+- Para garantir o funcionamento correto, execute o script de seed após rodar as migrações:
+  ```bash
+  node scripts/seed.js
+  ```
+- Esse script cria automaticamente o usuário de teste e todas as salas com os UUIDs corretos.
+- Caso as salas não estejam com os UUIDs corretos, o sistema não conseguirá salvar reservas.
+- Sempre que for rodar o projeto em um novo ambiente ou após limpar o banco, execute o seed para garantir os dados iniciais.
+
 ---
 
 ## <a name="c2"></a>2. Visão Geral da Aplicação Web
