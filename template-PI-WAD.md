@@ -31,7 +31,7 @@
 
 *Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
 
-// ADICINAR FOTO
+![Ana Paula Souza](assets/ana-paula.jpg)
 
 - Idade: 34 anos 
 
