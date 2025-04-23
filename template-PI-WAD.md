@@ -21,6 +21,8 @@
 *Preencha com até 300 palavras – sem necessidade de fonte.*
 *Descreva brevemente o sistema que você irá desenvolver.*
 
+O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
+
 ---
 
 ## <a name="c2"></a>2. Visão Geral da Aplicação Web
@@ -28,10 +30,6 @@
 ### 2.1. Personas (Semana 01)
 
 *Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
-
-O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
-
-
 
 ### 2.2. User Stories (Semana 01)
 
