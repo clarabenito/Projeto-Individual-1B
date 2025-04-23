@@ -39,27 +39,27 @@
 
 - Hábitos digitais: 
 
-&emsp; 1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Teams)
+1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Teams)
 
-&emsp; 2. Prefere soluções web/mobile rápidas e intuitivas
+2. Prefere soluções web/mobile rápidas e intuitivas
 
-&emsp; 3. Costuma acessar sistemas tanto pelo notebook quanto pelo celular
+3. Costuma acessar sistemas tanto pelo notebook quanto pelo celular
 
 - Necessidades:
 
-&emsp; 1. Reservar salas para reuniões de equipe e apresentações
+1. Reservar salas para reuniões de equipe e apresentações
 
-&emsp; 2. Visualizar rapidamente a disponibilidade das salas
+2. Visualizar rapidamente a disponibilidade das salas
 
-&emsp; 3. Garantir que não haja conflitos de horários nas reservas
+3. Garantir que não haja conflitos de horários nas reservas
 
 - Dores:
 
-&emsp; 1. Perda de tempo ao tentar reservar uma sala e descobrir que já está ocupada
+1. Perda de tempo ao tentar reservar uma sala e descobrir que já está ocupada
 
-&emsp; 2. Falta de transparência sobre quem está usando cada sala e quando
+2. Falta de transparência sobre quem está usando cada sala e quando
 
-&emsp; 3. Dificuldade em encontrar salas com recursos específicos (projetor, videoconferência)
+3. Dificuldade em encontrar salas com recursos específicos (projetor, videoconferência)
 
 - Solução:
 
