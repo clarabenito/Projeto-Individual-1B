@@ -33,11 +33,11 @@
 
 // ADICINAR FOTO
 
-- Idade: 34 anos 
+- **Idade:** 34 anos 
 
-- Ocupação: Gerente de Projetos em uma empresa de tecnologia
+- **Ocupação:** Gerente de Projetos em uma empresa de tecnologia
 
-- Hábitos digitais: 
+- **Hábitos digitais:**
 
 1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Teams)
 
@@ -45,7 +45,7 @@
 
 3. Costuma acessar sistemas tanto pelo notebook quanto pelo celular
 
-- Necessidades:
+- **Necessidades:**
 
 1. Reservar salas para reuniões de equipe e apresentações
 
@@ -53,7 +53,7 @@
 
 3. Garantir que não haja conflitos de horários nas reservas
 
-- Dores:
+- **Dores:**
 
 1. Perda de tempo ao tentar reservar uma sala e descobrir que já está ocupada
 
@@ -61,7 +61,7 @@
 
 3. Dificuldade em encontrar salas com recursos específicos (projetor, videoconferência)
 
-- Solução:
+- **Solução:**
 
 &emsp; O sistema de reserva de salas ajuda Ana a visualizar facilmente a disponibilidade dos espaços, realizar reservas em poucos cliques e filtrar opções conforme suas necessidades (capacidade, equipamentos, horários). Isso elimina conflitos, economiza tempo e melhora a organização das reuniões, tornando o ambiente de trabalho mais eficiente.
 
@@ -69,6 +69,15 @@
 ### 2.2. User Stories (Semana 01)
 
 *Posicione aqui a lista de User Stories levantadas para o projeto. Siga o template de User Stories e utilize a referência USXX para numeração (US01, US02, US03, ...). Indique todas as User Stories mapeadas, mesmo aquelas que não forem implementadas ao longo do projeto. Não se esqueça de explicar o INVEST de 1 User Storie prioritária.*
+
+
+| ID | Descrição
+|------|----------------------------------------------------------------------------------------------------------------------------|
+| US01 | Como colaborador, quero visualizar a disponibilidade das salas em um calendário, para escolher o melhor horário.|
+| US02 | Como colaborador, quero reservar uma sala informando data, horário e recursos, para garantir espaço adequado.|
+| US03 | Como administrador, quero aprovar ou cancelar reservas, para evitar conflitos e gerenciar espaços.|
+| US04 | Como colaborador, quero receber notificações por e-mail quando minha reserva for aprovada ou rejeitada, para me manter informado sobre o status da solicitação.|
+| US05 | Como colaborador, quero filtrar as salas por capacidade e equipamentos, para encontrar rapidamente uma sala que atenda às necessidades da minha reunião.|
 
 ---
 
