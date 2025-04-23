@@ -2,7 +2,7 @@
 
 **_Os trechos em itálico servem apenas como guia para o preenchimento da seção. Por esse motivo, não devem fazer parte da documentação final._**
 
-## Nome do Projeto
+## BookNow
 
 #### Clara de Borba Gutierrez Benito
 
@@ -21,7 +21,7 @@
 *Preencha com até 300 palavras – sem necessidade de fonte.*
 *Descreva brevemente o sistema que você irá desenvolver.*
 
-O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
+&emsp; O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
 
 ---
 
@@ -30,6 +30,41 @@ O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de S
 ### 2.1. Personas (Semana 01)
 
 *Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
+
+// ADICINAR FOTO
+
+- Idade: 34 anos 
+
+- Ocupação: Gerente de Projetos em uma empresa de tecnologia
+
+- Hábitos digitais: 
+
+&emsp; 1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Teams)
+
+&emsp; 2. Prefere soluções web/mobile rápidas e intuitivas
+
+&emsp; 3. Costuma acessar sistemas tanto pelo notebook quanto pelo celular
+
+- Necessidades:
+
+&emsp; 1. Reservar salas para reuniões de equipe e apresentações
+
+&emsp; 2. Visualizar rapidamente a disponibilidade das salas
+
+&emsp; 3. Garantir que não haja conflitos de horários nas reservas
+
+- Dores:
+
+&emsp; 1. Perda de tempo ao tentar reservar uma sala e descobrir que já está ocupada
+
+&emsp; 2. Falta de transparência sobre quem está usando cada sala e quando
+
+&emsp; 3. Dificuldade em encontrar salas com recursos específicos (projetor, videoconferência)
+
+- Solução:
+
+&emsp; O sistema de reserva de salas ajuda Ana a visualizar facilmente a disponibilidade dos espaços, realizar reservas em poucos cliques e filtrar opções conforme suas necessidades (capacidade, equipamentos, horários). Isso elimina conflitos, economiza tempo e melhora a organização das reuniões, tornando o ambiente de trabalho mais eficiente.
+
 
 ### 2.2. User Stories (Semana 01)
 
