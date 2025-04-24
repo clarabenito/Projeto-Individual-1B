@@ -35,7 +35,7 @@ A figura X apresenta uma imagem fictícia
 
 ![Ana Paula Souza](assets/ana-paula.jpg)
 
-*FIGURA 1- This person do not exist* 
+*FIGURA x- This person do not exist* 
 
 **Idade:** 34 anos 
 
