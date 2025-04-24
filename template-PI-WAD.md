@@ -35,11 +35,11 @@
 
 - **Idade:** 34 anos 
 
-- **Ocupação:** Gerente de Projetos em uma empresa de tecnologia
+- **Ocupação:** Gerente de Projetos em uma empresa voltada á tecnologia
 
 - **Hábitos digitais:**
 
-1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Teams)
+1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Trello)
 
 2. Prefere soluções web/mobile rápidas e intuitivas
 
@@ -59,7 +59,7 @@
 
 2. Falta de transparência sobre quem está usando cada sala e quando
 
-3. Dificuldade em encontrar salas com recursos específicos (projetor, videoconferência)
+3. Dificuldade em encontrar salas com recursos específicos (projetor, espaço disponível)
 
 - **Solução:**
 
@@ -78,6 +78,28 @@
 | US03 | Como administrador, quero aprovar ou cancelar reservas, para evitar conflitos e gerenciar espaços.|
 | US04 | Como colaborador, quero receber notificações por e-mail quando minha reserva for aprovada ou rejeitada, para me manter informado sobre o status da solicitação.|
 | US05 | Como colaborador, quero filtrar as salas por capacidade e equipamentos, para encontrar rapidamente uma sala que atenda às necessidades da minha reunião.|
+
+**Análise INVEST da US01**
+
+US01 | Como colaborador, quero visualizar a disponibilidade das salas em um calendário, para que eu possa escolher o melhor horário para minha reunião.
+
+I – Independente:
+Esta US pode ser implementada separadamente das outras, pois a visualização do calendário não depende da funcionalidade de reserva ou aprovação.
+
+N – Negociável:
+O formato da visualização (calendário semanal, mensal, lista) pode ser discutido e ajustado conforme feedback dos usuários e do time.
+
+V – Valiosa:
+Permite ao usuário tomar decisões rápidas e assertivas, reduzindo conflitos e otimizando o uso das salas.
+
+E – Estimável:
+O esforço para implementar um calendário de visualização é facilmente estimável pela equipe de desenvolvimento, pois há bibliotecas e padrões prontos para isso.
+
+S – Pequena (Small):
+A US é suficientemente pequena para ser desenvolvida em um curto espaço de tempo, sem necessidade de ser dividida.
+
+T – Testável:
+É possível testar se o calendário mostra corretamente as disponibilidades, validando com reservas reais e horários bloqueados.
 
 ---
 
