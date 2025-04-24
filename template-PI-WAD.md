@@ -33,11 +33,11 @@
 
 ![Ana Paula Souza](assets/ana-paula.jpg)
 
-- **Idade:** 34 anos 
+**Idade:** 34 anos 
 
-- **Ocupação:** Gerente de Projetos em uma empresa voltada á tecnologia
+**Ocupação:** Gerente de Projetos em uma empresa voltada á tecnologia
 
-- **Hábitos digitais:**
+**Hábitos digitais:**
 
 1. Utiliza diariamente aplicativos de agenda e comunicação (Google Calendar, Slack, Trello)
 
@@ -45,7 +45,7 @@
 
 3. Costuma acessar sistemas tanto pelo notebook quanto pelo celular
 
-- **Necessidades:**
+**Necessidades:**
 
 1. Reservar salas para reuniões de equipe e apresentações
 
@@ -53,7 +53,7 @@
 
 3. Garantir que não haja conflitos de horários nas reservas
 
-- **Dores:**
+**Dores:**
 
 1. Perda de tempo ao tentar reservar uma sala e descobrir que já está ocupada
 
@@ -61,7 +61,7 @@
 
 3. Dificuldade em encontrar salas com recursos específicos (projetor, espaço disponível)
 
-- **Solução:**
+**Solução:**
 
 &emsp; O sistema de reserva de salas ajuda Ana a visualizar facilmente a disponibilidade dos espaços, realizar reservas em poucos cliques e filtrar opções conforme suas necessidades (capacidade, equipamentos, horários). Isso elimina conflitos, economiza tempo e melhora a organização das reuniões, tornando o ambiente de trabalho mais eficiente.
 
