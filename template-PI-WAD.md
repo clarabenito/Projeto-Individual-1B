@@ -4,7 +4,7 @@
 
 ## BookNow
 
-#### Clara de Borba Gutierrez Benito
+#### <a href="http://www.linkedin.com/in/clara-benito">Clara Benito</a>
 
 ## Sumário
 
@@ -31,7 +31,9 @@
 
 *Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
 
+A figura 1 apresenta uma imagem fictícia
 ![Ana Paula Souza](assets/ana-paula.jpg)
+*FIGURA 1- This person do not exist* 
 
 - **Idade:** 34 anos 
 
