@@ -1,0 +1,7 @@
+{
+  "name": "@clara.benito/projeto-individual-1b",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
