@@ -1,7 +1,15 @@
-const PORT = 3001;
 const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const app = express();
-const authRoutes = require('./routes/auth');
+const PORT = 3000;
+
+// Middleware para processar JSON
+app.use(express.json());
+
+// Rotas
+const routes = require('./routes/index');
+app.use('/', routes);
+
+// Inicializa o servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
