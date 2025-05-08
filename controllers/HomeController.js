@@ -1,5 +1,3 @@
-// controllers/HomeController.js
-exports.index = (req, res) => {
-    res.send('BookNow');
-  };
-  
+exports.home = (req, res) => {
+  res.render('home');
+};

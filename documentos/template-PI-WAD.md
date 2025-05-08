@@ -113,6 +113,30 @@ T – Testável:
 
 *Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
 
+### Diagrama Relacional
+
+O sistema possui três entidades principais:
+- **users**: usuários do sistema
+- **rooms**: salas disponíveis para reserva
+- **bookings**: reservas realizadas pelos usuários
+
+O diagrama abaixo ilustra as tabelas e seus relacionamentos:
+
+![Diagrama do Banco de Dados](./modelo-banco.png)
+
+---
+
+### Modelo Físico (Schema SQL)
+
+O código SQL completo para a criação das tabelas do banco de dados encontra-se no arquivo [`modelo-banco.sql`](./modelo-banco.sql), localizado na raiz do repositório deste projeto.
+
+Para consultar a estrutura detalhada das tabelas e seus relacionamentos, acesse diretamente esse arquivo.
+
+**Resumo das entidades e relações:**
+- Cada usuário pode realizar várias reservas.
+- Cada sala pode ser reservada múltiplas vezes (em horários diferentes).
+- Cada reserva está associada a um usuário e a uma sala específica.
+
 *Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
 
 ### 3.1.1 BD e Models (Semana 5)
