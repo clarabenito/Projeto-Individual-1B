@@ -1,0 +1,3 @@
+SUPABASE_URL=sua_url
+SUPABASE_KEY=sua_chave
+PORT=3000
