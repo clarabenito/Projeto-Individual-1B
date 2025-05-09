@@ -14,7 +14,7 @@ Além de facilitar o controle de reservas, o sistema contribui para a organizaç
 
 A imagem abaixo representa a modelagem relacional utilizada na aplicação TickIN:
 
-![Modelo Relacional](./assets/modelo-banco.jpg)
+![Modelo Relacional](./assets/modelo-banco.png)
 
 
 ## Arquitetura do Projeto (MVC)
