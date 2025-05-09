@@ -132,6 +132,8 @@ O código SQL completo para a criação das tabelas do banco de dados encontra-s
 
 Para consultar a estrutura detalhada das tabelas e seus relacionamentos, acesse diretamente esse arquivo.
 
+https://github.com/clarabenito/Projeto-Individual-1B/blob/main/modelo-banco.sql
+
 **Resumo das entidades e relações:**
 - Cada usuário pode realizar várias reservas.
 - Cada sala pode ser reservada múltiplas vezes (em horários diferentes).
