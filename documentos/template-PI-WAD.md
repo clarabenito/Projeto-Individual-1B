@@ -31,11 +31,12 @@
 
 *Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
 
-A figura X apresenta uma imagem fictícia
-
-![Ana Paula Souza](assets/ana-paula.jpg)
-
-*FIGURA x- This person do not exist* 
+<div align="center">
+  <sub>FIGURA X - Personass</sub><br>
+  <img src= "../assets/ana-paula.jpg" width="100%" 
+  alt="Modelagem banco de dados"><br>
+  <sup>Fonte: Material produzido pela autora, 2025</sup>
+</div>
 
 **Idade:** 34 anos 
 
@@ -122,8 +123,12 @@ O sistema possui três entidades principais:
 
 O diagrama abaixo ilustra as tabelas e seus relacionamentos:
 
-![Diagrama do Banco de Dados](./modelo-banco.png)
-
+<div align="center">
+  <sub>FIGURA X - Diagrama Banco de dados</sub><br>
+  <img src= "../modelo-banco.png" width="100%" 
+  alt="Modelagem banco de dados"><br>
+  <sup>Fonte: Material produzido pela autora, 2025</sup>
+</div>
 ---
 
 ### Modelo Físico (Schema SQL)
