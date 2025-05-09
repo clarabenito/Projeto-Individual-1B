@@ -10,22 +10,6 @@ O BookNow permite que usuários consultem a disponibilidade de salas, filtrem po
 
 ## Estrutura de Pastas e Arquivos
 Projeto-Individual-1B/
-├── config/
-│ └── database.js
-├── controllers/
-│ └── HomeController.js
-├── models/
-│ └── User.js
-├── routes/
-│ └── index.js
-├── views/
-│ └── home.ejs
-├── modelo-banco.sql
-├── modelo-banco.png
-├── README.md
-├── WAD.md
-├── server.js
-└── package.json
 
 ## Como Executar o Projeto 
 
