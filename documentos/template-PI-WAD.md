@@ -164,10 +164,32 @@ https://github.com/clarabenito/Projeto-Individual-1B/blob/main/modelo-banco.sql
 
 *Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).*
 
+Os wireframes abaixo representam as principais telas da aplicação web **BookNow**, desenvolvida para facilitar a reserva de salas em ambientes corporativos e educacionais. A proposta é oferecer uma interface simples, intuitiva e funcional para os usuários realizarem reservas com rapidez e clareza.
+
+As telas foram desenhadas considerando os fluxos principais identificados nas User Stories:
+
+**Tela 1 – Login**  
+Acesso ao sistema com campos para e-mail e senha, além de opções para recuperação de senha e cadastro de novo usuário.
+
+**Tela 2 – Calendário Geral de Reservas**  
+Visualização mensal com indicação de dias disponíveis e indisponíveis para reserva. Permite filtros por sala e recursos específicos.
+
+**Tela 3 – Seleção de Dia e Horário por Sala**  
+Exibição detalhada da disponibilidade por sala e horário no dia selecionado, permitindo ao usuário escolher o melhor período para a reserva.
+
+**Tela 4 – Confirmação de Reserva**  
+Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário) e confirma a reserva. É possível adicionar uma descrição da reunião ou marcar participantes (não obrigatórios).
+
+<div align="center">
+  <sub>FIGURA X - Wireframe</sub><br>
+  <img src= "../assets/calendario.png" width="100%" 
+  alt="Modelagem banco de dados"><br>
+  <sup>Fonte: Material produzido pela autora, 2025</sup>
+</div>
+
 ### 3.4. Guia de estilos (Semana 05)
 
 *Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
-
 
 ### 3.5. Protótipo de alta fidelidade (Semana 05)
 
