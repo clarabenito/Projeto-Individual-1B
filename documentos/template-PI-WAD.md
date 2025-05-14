@@ -34,7 +34,7 @@
 <div align="center">
   <sub>FIGURA X - Personass</sub><br>
   <img src= "../assets/ana-paula.jpg" width="100%" 
-  alt="Modelagem banco de dados"><br>
+  alt="Persona"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
 </div>
 
@@ -183,7 +183,7 @@ Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário
 <div align="center">
   <sub>FIGURA X - Wireframe</sub><br>
   <img src= "../assets/calendario.png" width="100%" 
-  alt="Modelagem banco de dados"><br>
+  alt="Wireframe"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
 </div>
 
