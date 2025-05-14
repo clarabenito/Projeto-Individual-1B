@@ -169,15 +169,18 @@ Os wireframes abaixo representam as principais telas da aplicação web **BookNo
 As telas foram desenhadas considerando os fluxos principais identificados nas User Stories:
 
 **Tela 1 – Login**  
-Acesso ao sistema com campos para e-mail e senha, além de opções para recuperação de senha e cadastro de novo usuário.
+Acesso ao sistema com campos para e-mail e senha,tro de novo usuário.
 
-**Tela 2 – Calendário Geral de Reservas**  
-Visualização mensal com indicação de dias disponíveis e indisponíveis para reserva. Permite filtros por sala e recursos específicos.
+**Tela 2 – Salas e características**  
+Exibe todas as salas e seus atributos.
 
-**Tela 3 – Seleção de Dia e Horário por Sala**  
-Exibição detalhada da disponibilidade por sala e horário no dia selecionado, permitindo ao usuário escolher o melhor período para a reserva.
+**Tela 3 – Calendário Geral de Reservas**   
+Visualização mensal com indicação de dias disponíveis e indisponíveis para reserva.
 
-**Tela 4 – Confirmação de Reserva**  
+**Tela 4 – Seleção de Dia e Horário por Sala**  
+Exibição detalhada da disponibilidade por sala e horário no dia selecionado, permitindo ao usuário escolher o melhor período para a reserva. 
+
+**Tela 5 - Confirmação de Reserva**
 Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário) e confirma a reserva. É possível adicionar uma descrição da reunião ou marcar participantes (não obrigatórios).
 
 <div align="center">
