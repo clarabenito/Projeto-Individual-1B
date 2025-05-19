@@ -2,6 +2,9 @@
 
 const userService = require('../services/userService');
 
+/**
+ * Busca todos os usuários
+ */
 const getAllUsers = async (req, res) => {
   try {
     const users = await userService.getAllUsers();
@@ -11,6 +14,9 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+/**
+ * Busca usuário por ID
+ */
 const getUserById = async (req, res) => {
   try {
     const user = await userService.getUserById(req.params.id);
@@ -24,6 +30,9 @@ const getUserById = async (req, res) => {
   }
 };
 
+/**
+ * Cria um novo usuário
+ */
 const createUser = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -34,6 +43,9 @@ const createUser = async (req, res) => {
   }
 };
 
+/**
+ * Atualiza um usuário existente
+ */
 const updateUser = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -48,6 +60,9 @@ const updateUser = async (req, res) => {
   }
 };
 
+/**
+ * Deleta um usuário
+ */
 const deleteUser = async (req, res) => {
   try {
     const deletedUser = await userService.deleteUser(req.params.id);
