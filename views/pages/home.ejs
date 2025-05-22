@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Tarefas</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="task-form">
+                <h2>Nova Tarefa</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <textarea id="descricao" name="descricao"></textarea>
+                    </div>
+                    <button type="submit">Adicionar Tarefa</button>
+                </form>
+            </div>
+
+            <div class="task-list">
+                <h2>Minhas Tarefas</h2>
+                <div id="tarefas"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema de Tarefas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Carregar tarefas ao iniciar a página
+        document.addEventListener('DOMContentLoaded', carregarTarefas);
+
+        // Função para carregar tarefas
+        async function carregarTarefas() {
+            try {
+                const response = await fetch('/api/tarefas');
+                const tarefas = await response.json();
+                const tarefasDiv = document.getElementById('tarefas');
+                
+                if (tarefas.length === 0) {
+                    tarefasDiv.innerHTML = '<p class="no-tasks">Nenhuma tarefa encontrada.</p>';
+                    return;
+                }
+
+                tarefasDiv.innerHTML = tarefas.map(tarefa => `
+                    <div class="task-card" data-id="${tarefa.id}">
+                        <h3>${tarefa.nome}</h3>
+                        <p>${tarefa.descricao || 'Sem descrição'}</p>
+                        <p class="status">Status: <span class="status-${tarefa.status}">${tarefa.status}</span></p>
+                        <div class="task-actions">
+                            <button onclick="editarTarefa(${tarefa.id})" class="edit-btn">Editar</button>
+                            <button onclick="excluirTarefa(${tarefa.id})" class="delete-btn">Excluir</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erro ao carregar tarefas:', error);
+                document.getElementById('tarefas').innerHTML = '<p class="error">Erro ao carregar tarefas. Tente novamente mais tarde.</p>';
+            }
+        }
+
+        // Adicionar nova tarefa
+        document.getElementById('taskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                nome: document.getElementById('nome').value,
+                descricao: document.getElementById('descricao').value
+            };
+
+            try {
+                const response = await fetch('/api/tarefas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    document.getElementById('taskForm').reset();
+                    carregarTarefas();
+                } else {
+                    throw new Error('Erro ao criar tarefa');
+                }
+            } catch (error) {
+                console.error('Erro ao criar tarefa:', error);
+                alert('Erro ao criar tarefa. Tente novamente.');
+            }
+        });
+
+        // Função para excluir tarefa
+        async function excluirTarefa(id) {
+            if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
+                try {
+                    const response = await fetch(`/api/tarefas/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        carregarTarefas();
+                    } else {
+                        throw new Error('Erro ao excluir tarefa');
+                    }
+                } catch (error) {
+                    console.error('Erro ao excluir tarefa:', error);
+                    alert('Erro ao excluir tarefa. Tente novamente.');
+                }
+            }
+        }
+
+        // Função para editar tarefa
+        async function editarTarefa(id) {
+            const novoStatus = prompt('Digite o novo status da tarefa (pendente, em_andamento, concluida):');
+            if (novoStatus) {
+                try {
+                    const response = await fetch(`/api/tarefas/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            status: novoStatus
+                        })
+                    });
+
+                    if (response.ok) {
+                        carregarTarefas();
+                    } else {
+                        throw new Error('Erro ao atualizar tarefa');
+                    }
+                } catch (error) {
+                    console.error('Erro ao editar tarefa:', error);
+                    alert('Erro ao atualizar tarefa. Tente novamente.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

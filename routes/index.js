@@ -6,8 +6,8 @@ const TarefaController = require('../controllers/TarefaController');
 // Rotas para o CRUD de tarefas
 router.post('/tarefas', TarefaController.criarTarefa);
 router.get('/tarefas', TarefaController.listarTarefas);
+router.get('/tarefas/:id', TarefaController.buscarTarefa);
 router.put('/tarefas/:id', TarefaController.editarTarefa);
 router.delete('/tarefas/:id', TarefaController.excluirTarefa);
-router.get('/users', UserController.getAllUsers);
 
 module.exports = router;

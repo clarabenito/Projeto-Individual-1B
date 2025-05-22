@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../components/header') %>
+
+    <main>
+        <div class="container">
+            <div class="error-page">
+                <h1>404 - Página não encontrada</h1>
+                <p>A página que você está procurando não existe.</p>
+                <a href="/" class="btn">Voltar para a página inicial</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema de Tarefas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+<style>
+.error-page {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.error-page h1 {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+</style> 
