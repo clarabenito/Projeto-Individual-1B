@@ -17,9 +17,11 @@
 </table>
 
 <script>
-  // Função para buscar usuários da API e renderizar na tabela
+  // Função para buscar usuários da API e renderizar na tabela 
+  
   async function fetchUsers() {
     try {
+      // Busca usuários da rota que deve ser servida pelo userController (GET /users)
       const response = await fetch('/users');
       if (!response.ok) {
         throw new Error('Erro ao buscar usuários');
@@ -51,4 +53,3 @@
 
   // Chama a função ao carregar a página
   fetchUsers();
-</script>

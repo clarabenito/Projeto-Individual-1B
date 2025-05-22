@@ -1,16 +1,15 @@
 // config/db.js
 require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
 
-// Checagem das variáveis de ambiente
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const { Pool } = require('pg');
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('SUPABASE_URL e SUPABASE_KEY são obrigatórios! Verifique seu arquivo .env');
-}
+// Criando a pool de conexões
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
-// Inicializa o cliente Supabase
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-module.exports = supabase;
+module.exports = pool;
