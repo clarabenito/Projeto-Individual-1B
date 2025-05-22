@@ -1,8 +1,19 @@
 // server.js
-const app = require('./app');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes');
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+const port = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+
+// Usando as rotas definidas
+app.use('/api', routes);
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });

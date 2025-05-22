@@ -1,7 +1,13 @@
+// routes/index.js
 const express = require('express');
 const router = express.Router();
-const homeController = require('../controllers/HomeController');
+const TarefaController = require('../controllers/TarefaController');
 
-router.get('/', homeController.home);
+// Rotas para o CRUD de tarefas
+router.post('/tarefas', TarefaController.criarTarefa);
+router.get('/tarefas', TarefaController.listarTarefas);
+router.put('/tarefas/:id', TarefaController.editarTarefa);
+router.delete('/tarefas/:id', TarefaController.excluirTarefa);
+router.get('/users', UserController.getAllUsers);
 
 module.exports = router;
