@@ -194,9 +194,92 @@ Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário
 
 *Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
 
+O sistema utiliza uma identidade visual consistente baseada em tons de roxo e cinza:
+
+**Cores:**
+- Roxo Principal: #8D40A4
+- Roxo Secundário: #692D7E
+- Rosa Destaque: #A61C72
+- Cinza: #898989
+
+**Tipografia:**
+- Família: Positivus
+- Hierarquia:
+  - H1: Positivus (títulos principais)
+  - H2: Positivus (subtítulos)
+  - H3: Positivus (seções)
+  - H4: Positivus (subseções)
+  - p: Positivus (corpo do texto)
+
+  **Componentes:**
+  - Logo: Ícone de livro estilizado com "BookNow"
+- Botões:
+  - Primário: Fundo roxo (#8D40A4) com texto branco
+  - Secundário: Fundo rosa (#A61C72) com texto branco
+  - Terciário: Fundo cinza com texto escuro
+- Cards: Cantos arredondados com fundo cinza claro
+- Ícones:
+  - Check mark para confirmações
+  - Usuário para indicadores de capacidade
+  - Monitor para indicadores de equipamentos
+
+<div align="center">
+  <sub>FIGURA X - Guia de Estilos</sub><br>
+  <img src= "../tipografia.png" width="100%" 
+  alt="guias de estilos"><br>
+  <sup>Fonte: Material produzido pela autora, 2025</sup>
+</div>
+---
+
 ### 3.5. Protótipo de alta fidelidade (Semana 05)
 
 *Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+
+O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes telas principais:
+
+**1. Tela de Login**
+- Logo BookNow no topo
+- Campos para email e senha
+- Botão "Sign in" em destaque
+- Interface limpa e minimalista
+
+**2. Lista de Salas**
+- Exibição em grid de 6 salas
+- Cada sala mostra:
+  - Número da sala
+  - Capacidade (ícone de pessoa)
+  - Equipamentos (ícone de monitor)
+- Botão "Escolher" para cada sala
+- Botão "Avançar" no topo direito
+
+**3. Calendário de Reservas**
+- Visualização mensal completa
+- Legenda de disponibilidade:
+  - Roxo escuro: Disponível
+  - Rosa: Indisponível
+- Seletor de horários na lateral direita
+- Indicadores visuais claros de status
+
+**4. Detalhes da Reserva**
+- Card com informações da sala selecionada:
+  - Número da sala
+  - Horário escolhido
+  - Capacidade
+  - Equipamentos disponíveis
+- Botões de "Voltar" e "Confirmar"
+
+**5. Confirmação**
+- Ícone de check mark grande
+- Mensagem de "SUCESSO!"
+- Design minimalista focado na confirmação
+
+<div align="center">
+  <sub>FIGURA X - Protótipo de Alta Fidelidade</sub><br>
+  <img src= "../wf.png" width="100%" 
+  alt="guias de estilos"><br>
+  <sup>Fonte: Material produzido pela autora, 2025</sup>
+</div>
+---
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
