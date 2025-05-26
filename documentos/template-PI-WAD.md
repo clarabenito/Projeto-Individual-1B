@@ -225,7 +225,7 @@ O sistema utiliza uma identidade visual consistente baseada em tons de roxo e ci
 
 <div align="center">
   <sub>FIGURA X - Guia de Estilos</sub><br>
-  <img src= "../tipografia.png" width="100%" 
+  <img src= "../assets/tipografia.png" width="100%" 
   alt="guias de estilos"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
 </div>
@@ -275,7 +275,7 @@ O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes t
 
 <div align="center">
   <sub>FIGURA X - Protótipo de Alta Fidelidade</sub><br>
-  <img src= "../wf.png" width="100%" 
+  <img src= "../assets/wf.png" width="100%" 
   alt="guias de estilos"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
 </div>
