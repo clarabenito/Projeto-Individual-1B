@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/alunoController');
+const alunoController = require('../controllers/alunoController');
 
-router.get('/', controller.index);
-router.post('/', controller.store);
-router.post('/edit/:id', controller.update);
-router.post('/delete/:id', controller.destroy);
+router.get('/', alunoController.listarAlunos);
+router.post('/', alunoController.criarAluno);
 
-module.exports = router;
+module.exports = router; 

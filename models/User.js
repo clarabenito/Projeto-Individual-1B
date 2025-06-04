@@ -1,29 +1,25 @@
-const supabase = require('../config/db'); // Importe o client do Supabase
-
 class User {
-  static async create({ nome, email }) {
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ nome, email }])
-      .select()
-      .single();
+    constructor(nome, email, senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
 
-    if (error) throw new Error(error.message);
-    return data;
-  }
+    static async create(data) {
+        // Aqui seria a lógica para criar um usuário no banco
+        const user = new User(data.nome, data.email, data.senha);
+        return user;
+    }
 
-  static async findByEmail(email) {
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .single();
+    static async findByEmail(email) {
+        // Aqui seria a lógica para buscar um usuário pelo email
+        return null;
+    }
 
-    if (error) return null;
-    return data;
-  }
-
-  // Adicione outros métodos conforme necessário (getById, update, delete)
+    static async findById(id) {
+        // Aqui seria a lógica para buscar um usuário pelo ID
+        return null;
+    }
 }
 
-module.exports = User;
+module.exports = User; 

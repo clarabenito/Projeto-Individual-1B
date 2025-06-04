@@ -1,23 +1,25 @@
 const Aluno = require('../models/aluno');
 
-exports.index = async (req, res) => {
-  const alunos = await Aluno.findAll();
-  res.render('alunos/index', { alunos });
+const alunoController = {
+    async listarAlunos(req, res) {
+        try {
+            const alunos = await Aluno.findAll();
+            res.json(alunos);
+        } catch (error) {
+            console.error('Erro ao listar alunos:', error);
+            res.status(500).json({ error: 'Erro ao listar alunos' });
+        }
+    },
+
+    async criarAluno(req, res) {
+        try {
+            const aluno = await Aluno.create(req.body);
+            res.status(201).json(aluno);
+        } catch (error) {
+            console.error('Erro ao criar aluno:', error);
+            res.status(500).json({ error: 'Erro ao criar aluno' });
+        }
+    }
 };
 
-exports.store = async (req, res) => {
-  await Aluno.create(req.body);
-  res.redirect('/alunos');
-};
-
-exports.update = async (req, res) => {
-  const { id } = req.params;
-  await Aluno.update(id, req.body);
-  res.redirect('/alunos');
-};
-
-exports.destroy = async (req, res) => {
-  const { id } = req.params;
-  await Aluno.delete(id);
-  res.redirect('/alunos');
-};
+module.exports = alunoController; 

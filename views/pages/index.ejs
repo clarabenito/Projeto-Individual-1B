@@ -1,0 +1,126 @@
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="h2">Calendário de Reservas</h1>
+        <p class="text-muted">Visualize e gerencie as reservas de salas</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="calendar">
+            <div class="calendar-header">
+                <button class="btn btn-outline-secondary" id="prevMonth">&lt;</button>
+                <h2 class="h4 mb-0" id="currentMonth">Março 2024</h2>
+                <button class="btn btn-outline-secondary" id="nextMonth">&gt;</button>
+            </div>
+            
+            <div class="calendar-weekdays mb-2">
+                <div class="calendar-grid">
+                    <div class="text-center">Dom</div>
+                    <div class="text-center">Seg</div>
+                    <div class="text-center">Ter</div>
+                    <div class="text-center">Qua</div>
+                    <div class="text-center">Qui</div>
+                    <div class="text-center">Sex</div>
+                    <div class="text-center">Sáb</div>
+                </div>
+            </div>
+            
+            <div class="calendar-grid" id="calendarDays">
+                <!-- Dias do calendário serão inseridos via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="h5 mb-3">Próximas Reservas</h3>
+                <div id="nextBookings">
+                    <!-- Lista de próximas reservas será inserida via JavaScript -->
+                    <div class="text-center text-muted">
+                        Nenhuma reserva próxima
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="h5 mb-3">Nova Reserva</h3>
+                <a href="/reservas/nova" class="btn btn-primary w-100">Fazer Nova Reserva</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarDays = document.getElementById('calendarDays');
+    const currentMonthElement = document.getElementById('currentMonth');
+    const prevMonthButton = document.getElementById('prevMonth');
+    const nextMonthButton = document.getElementById('nextMonth');
+
+    let currentDate = new Date();
+
+    function updateCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        // Atualiza o título do mês
+        const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        currentMonthElement.textContent = `${monthNames[month]} ${year}`;
+
+        // Limpa o calendário
+        calendarDays.innerHTML = '';
+
+        // Obtém o primeiro dia do mês
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        
+        // Adiciona dias vazios no início
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day';
+            calendarDays.appendChild(emptyDay);
+        }
+
+        // Adiciona os dias do mês
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
+            
+            // Adiciona classe para dias disponíveis/indisponíveis (exemplo)
+            if (Math.random() > 0.5) {
+                dayElement.classList.add('available');
+            } else {
+                dayElement.classList.add('unavailable');
+            }
+
+            dayElement.addEventListener('click', () => {
+                if (dayElement.classList.contains('available')) {
+                    window.location.href = `/reservas/nova?data=${year}-${month + 1}-${day}`;
+                }
+            });
+
+            calendarDays.appendChild(dayElement);
+        }
+    }
+
+    // Event listeners para navegação do calendário
+    prevMonthButton.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        updateCalendar();
+    });
+
+    nextMonthButton.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        updateCalendar();
+    });
+
+    // Inicializa o calendário
+    updateCalendar();
+});
+</script> 

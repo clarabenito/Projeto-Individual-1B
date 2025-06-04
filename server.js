@@ -1,52 +1,22 @@
 // server.js
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const routes = require('./routes');
+const app = require('./app');
+const { supabase } = require('./lib/supabase');
 
-const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Configuração do EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+// Verifica a conexão com o Supabase
+async function checkSupabaseConnection() {
+    try {
+        const { data, error } = await supabase.from('salas').select('count').single();
+        if (error) throw error;
+        console.log('Conexão com Supabase estabelecida com sucesso!');
+    } catch (error) {
+        console.error('Erro ao conectar com Supabase:', error.message);
+    }
+}
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Servir arquivos estáticos
-app.use(express.static('public'));
-
-// Rotas da API
-app.use('/api', routes);
-
-// Rota principal
-app.get('/', (req, res) => {
-  res.render('pages/home', {
-    pageTitle: 'Sistema de Tarefas'
-  });
-});
-
-// Tratamento de erros
-app.use((err, req, res, next) => {
-  console.error('Erro:', err);
-  res.status(500).render('pages/error', {
-    pageTitle: 'Erro',
-    error: err.message || 'Algo deu errado!'
-  });
-});
-
-// Tratamento para rotas não encontradas
-app.use((req, res) => {
-  res.status(404).render('pages/404', {
-    pageTitle: 'Página não encontrada'
-  });
-});
-
-// Iniciar o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+// Inicia o servidor
+app.listen(PORT, async () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+    await checkSupabaseConnection();
 });
