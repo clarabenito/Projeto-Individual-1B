@@ -1,0 +1,118 @@
+<div class="calendario-container">
+    <h1 class="h2 mb-4">Calendário</h1>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="calendario-grid">
+                <div class="calendario-header">
+                    <div class="dias-semana">
+                        <div>domingo</div>
+                        <div>segunda</div>
+                        <div>terça</div>
+                        <div>quarta</div>
+                        <div>quinta</div>
+                        <div>sexta</div>
+                        <div>sábado</div>
+                    </div>
+                </div>
+                <div class="calendario-dias" id="calendarioDias">
+                    <!-- Os dias serão inseridos via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="legenda-container">
+                <div class="legenda-item">
+                    <div class="cor-legenda disponivel"></div>
+                    <span>Disponível</span>
+                </div>
+                <div class="legenda-item">
+                    <div class="cor-legenda indisponivel"></div>
+                    <span>Indisponível</span>
+                </div>
+            </div>
+
+            <div class="horarios-container mt-4">
+                <h3 class="h5 mb-3">Selecionar horário:</h3>
+                <select class="form-select mb-3" id="horarioSelect">
+                    <option value="8:00">8:00</option>
+                    <option value="9:00">9:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                </select>
+                <button class="btn btn-primary w-100" onclick="selecionarHorario()">Selecionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarioDias = document.getElementById('calendarioDias');
+    const hoje = new Date();
+    const mes = hoje.getMonth();
+    const ano = hoje.getFullYear();
+
+    // Primeiro dia do mês
+    const primeiroDia = new Date(ano, mes, 1);
+    // Último dia do mês
+    const ultimoDia = new Date(ano, mes + 1, 0);
+
+    // Preenche os dias vazios no início
+    for (let i = 0; i < primeiroDia.getDay(); i++) {
+        const diaVazio = document.createElement('div');
+        diaVazio.className = 'dia vazio';
+        calendarioDias.appendChild(diaVazio);
+    }
+
+    // Preenche os dias do mês
+    for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+        const diaElement = document.createElement('div');
+        diaElement.className = 'dia';
+        diaElement.textContent = dia;
+        
+        // Adiciona classe disponível/indisponível aleatoriamente (exemplo)
+        if (Math.random() > 0.5) {
+            diaElement.classList.add('disponivel');
+        } else {
+            diaElement.classList.add('indisponivel');
+        }
+
+        diaElement.addEventListener('click', function() {
+            if (this.classList.contains('disponivel')) {
+                document.querySelectorAll('.dia').forEach(d => d.classList.remove('selecionado'));
+                this.classList.add('selecionado');
+            }
+        });
+
+        calendarioDias.appendChild(diaElement);
+    }
+});
+
+function selecionarHorario() {
+    const horarioSelect = document.getElementById('horarioSelect');
+    const horario = horarioSelect.value;
+    const diaSelecionado = document.querySelector('.dia.selecionado');
+    
+    if (!diaSelecionado) {
+        alert('Por favor, selecione um dia disponível primeiro.');
+        return;
+    }
+
+    // Salva a data e horário selecionados
+    const data = diaSelecionado.textContent;
+    localStorage.setItem('dataSelecionada', data);
+    localStorage.setItem('horarioSelecionado', horario);
+
+    // Redireciona para a página de detalhes
+    window.location.href = '/detalhes';
+}
+</script> 

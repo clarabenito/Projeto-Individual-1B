@@ -3,26 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>  
-  <link rel="stylesheet" href="/css/style.css">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <!-- Inclui o cabeçalho como um partial -->
-  <%- include('../components/header') %>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #8D40A4;">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="../assets/logo.booknow.png" alt="BookNow Logo" height="30">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/salas">Salas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reservas">Minhas Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/calendario">Calendário</a>
+          </li>
+          <li class="nav-item">
+            <button onclick="logout()" class="btn btn-outline-light ms-2">Sair</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <main>
-    <!-- Renderiza o conteúdo da página específica -->
-    <%- include(content) %>
+  <main class="container my-4">
+    <%- body %>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2024 Sistema de Tarefas. Todos os direitos reservados.</p>
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+      <span class="text-muted">© 2024 BookNow - Sistema de Reserva de Salas</span>
     </div>
   </footer>
 
-  <!-- Adicione scripts JS se necessário -->
-  <script src="/js/script.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+
+  <script>
+    // Verifica autenticação ao carregar a página
+    if (!isAuthenticated()) {
+      window.location.href = '/';
+    }
+  </script>
 </body>
 </html>

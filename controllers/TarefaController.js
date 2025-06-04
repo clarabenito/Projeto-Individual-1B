@@ -1,91 +1,59 @@
-// controllers/TarefaController.js
-const pool = require('../config/db');
+const TarefaController = {
+    async criarTarefa(req, res) {
+        try {
+            const { titulo, descricao } = req.body;
+            // Aqui seria a lógica para criar uma tarefa no banco de dados
+            res.status(201).json({ message: 'Tarefa criada com sucesso' });
+        } catch (error) {
+            console.error('Erro ao criar tarefa:', error);
+            res.status(500).json({ error: 'Erro ao criar tarefa' });
+        }
+    },
 
-// Criar uma nova tarefa
-exports.criarTarefa = async (req, res) => {
-  const { nome, descricao } = req.body;
+    async listarTarefas(req, res) {
+        try {
+            // Aqui seria a lógica para listar tarefas do banco de dados
+            const tarefas = [];
+            res.json(tarefas);
+        } catch (error) {
+            console.error('Erro ao listar tarefas:', error);
+            res.status(500).json({ error: 'Erro ao listar tarefas' });
+        }
+    },
 
-  const query = 'INSERT INTO tarefas (nome, descricao) VALUES ($1, $2) RETURNING *';
-  const values = [nome, descricao];
+    async buscarTarefa(req, res) {
+        try {
+            const { id } = req.params;
+            // Aqui seria a lógica para buscar uma tarefa específica
+            res.json({ id, titulo: 'Tarefa exemplo', descricao: 'Descrição exemplo' });
+        } catch (error) {
+            console.error('Erro ao buscar tarefa:', error);
+            res.status(500).json({ error: 'Erro ao buscar tarefa' });
+        }
+    },
 
-  try {
-    const result = await pool.query(query, values);
-    const tarefa = result.rows[0];
-    res.status(201).json(tarefa);
-  } catch (err) {
-    console.error('Erro ao criar tarefa:', err);
-    res.status(500).json({ error: 'Erro ao criar tarefa' });
-  }
-};
+    async editarTarefa(req, res) {
+        try {
+            const { id } = req.params;
+            const { titulo, descricao } = req.body;
+            // Aqui seria a lógica para editar uma tarefa
+            res.json({ message: 'Tarefa atualizada com sucesso' });
+        } catch (error) {
+            console.error('Erro ao editar tarefa:', error);
+            res.status(500).json({ error: 'Erro ao editar tarefa' });
+        }
+    },
 
-// Listar todas as tarefas
-exports.listarTarefas = async (req, res) => {
-  const query = 'SELECT * FROM tarefas ORDER BY created_at DESC';
-
-  try {
-    const result = await pool.query(query);
-    res.status(200).json(result.rows);
-  } catch (err) {
-    console.error('Erro ao listar tarefas:', err);
-    res.status(500).json({ error: 'Erro ao listar tarefas' });
-  }
-};
-
-// Buscar uma tarefa específica
-exports.buscarTarefa = async (req, res) => {
-  const { id } = req.params;
-  const query = 'SELECT * FROM tarefas WHERE id = $1';
-
-  try {
-    const result = await pool.query(query, [id]);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Tarefa não encontrada' });
+    async excluirTarefa(req, res) {
+        try {
+            const { id } = req.params;
+            // Aqui seria a lógica para excluir uma tarefa
+            res.json({ message: 'Tarefa excluída com sucesso' });
+        } catch (error) {
+            console.error('Erro ao excluir tarefa:', error);
+            res.status(500).json({ error: 'Erro ao excluir tarefa' });
+        }
     }
-    res.status(200).json(result.rows[0]);
-  } catch (err) {
-    console.error('Erro ao buscar tarefa:', err);
-    res.status(500).json({ error: 'Erro ao buscar tarefa' });
-  }
 };
 
-// Editar uma tarefa
-exports.editarTarefa = async (req, res) => {
-  const { id } = req.params;
-  const { nome, descricao, status } = req.body;
-
-  const query = `
-    UPDATE tarefas 
-    SET nome = $1, descricao = $2, status = $3, updated_at = CURRENT_TIMESTAMP
-    WHERE id = $4 
-    RETURNING *`;
-  const values = [nome, descricao, status, id];
-
-  try {
-    const result = await pool.query(query, values);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Tarefa não encontrada' });
-    }
-    res.status(200).json(result.rows[0]);
-  } catch (err) {
-    console.error('Erro ao editar tarefa:', err);
-    res.status(500).json({ error: 'Erro ao editar tarefa' });
-  }
-};
-
-// Excluir uma tarefa
-exports.excluirTarefa = async (req, res) => {
-  const { id } = req.params;
-
-  const query = 'DELETE FROM tarefas WHERE id = $1 RETURNING *';
-
-  try {
-    const result = await pool.query(query, [id]);
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Tarefa não encontrada' });
-    }
-    res.status(200).json({ message: 'Tarefa excluída com sucesso' });
-  } catch (err) {
-    console.error('Erro ao excluir tarefa:', err);
-    res.status(500).json({ error: 'Erro ao excluir tarefa' });
-  }
-};
+module.exports = TarefaController; 

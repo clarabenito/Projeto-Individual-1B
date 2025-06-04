@@ -1,0 +1,60 @@
+<div class="detalhes-container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h4 mb-4">Detalhes</h2>
+
+                    <div class="detalhes-info">
+                        <div class="info-row">
+                            <div class="info-label">Sala:</div>
+                            <div class="info-value" id="salaInfo">1</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Horário:</div>
+                            <div class="info-value" id="horarioInfo">9:00</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Pessoas:</div>
+                            <div class="info-value" id="pessoasInfo">4</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Projetor:</div>
+                            <div class="info-value" id="projetorInfo">1</div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary" onclick="confirmarReserva()">Confirmar</button>
+                        <button class="btn btn-outline-secondary" onclick="window.history.back()">Voltar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Recupera os dados salvos
+    const sala = localStorage.getItem('salaSelecionada');
+    const data = localStorage.getItem('dataSelecionada');
+    const horario = localStorage.getItem('horarioSelecionado');
+
+    // Atualiza os detalhes na tela
+    if (sala) {
+        document.getElementById('salaInfo').textContent = sala;
+    }
+    if (horario) {
+        document.getElementById('horarioInfo').textContent = horario;
+    }
+});
+
+function confirmarReserva() {
+    // Aqui você faria a chamada à API para criar a reserva
+    window.location.href = '/sucesso';
+}
+</script> 

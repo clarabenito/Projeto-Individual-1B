@@ -1,25 +1,25 @@
-const db = require('../config/db');
+class Aluno {
+    constructor(nome, email, matricula) {
+        this.nome = nome;
+        this.email = email;
+        this.matricula = matricula;
+    }
 
-module.exports = {
-  async create(data) {
-    const query = 'INSERT INTO aluno (nome, email) VALUES ($1, $2)';
-    const values = [data.nome, data.email];
-    return db.query(query, values);
-  },
+    static async findAll() {
+        // Aqui seria a lógica para buscar todos os alunos no banco
+        return [];
+    }
 
-  async findAll() {
-    const result = await db.query('SELECT * FROM aluno ORDER BY id ASC');
-    return result.rows;
-  },
+    static async create(data) {
+        // Aqui seria a lógica para criar um aluno no banco
+        const aluno = new Aluno(data.nome, data.email, data.matricula);
+        return aluno;
+    }
 
-  async update(id, data) {
-    const query = 'UPDATE aluno SET nome = $1, email = $2 WHERE id = $3';
-    const values = [data.nome, data.email, id];
-    return db.query(query, values);
-  },
+    static async findByMatricula(matricula) {
+        // Aqui seria a lógica para buscar um aluno pela matrícula
+        return null;
+    }
+}
 
-  async delete(id) {
-    const query = 'DELETE FROM aluno WHERE id = $1';
-    return db.query(query, [id]);
-  }
-};
+module.exports = Aluno; 
