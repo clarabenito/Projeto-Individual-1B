@@ -1,7 +1,5 @@
 # Web Application Document - Projeto Individual - Módulo 2 - Inteli
 
-**_Os trechos em itálico servem apenas como guia para o preenchimento da seção. Por esse motivo, não devem fazer parte da documentação final._**
-
 ## BookNow
 
 #### <a href="http://www.linkedin.com/in/clara-benito">Clara Benito</a>
@@ -16,10 +14,7 @@
 
 <br>
 
-## <a name="c1"></a>1. Introdução (Semana 01)
-
-*Preencha com até 300 palavras – sem necessidade de fonte.*
-*Descreva brevemente o sistema que você irá desenvolver.*
+## <a name="c1"></a>1. Introdução 
 
 &emsp; O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
 
@@ -27,12 +22,10 @@
 
 ## <a name="c2"></a>2. Visão Geral da Aplicação Web
 
-### 2.1. Personas (Semana 01)
-
-*Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário.*
+### 2.1. Personas 
 
 <div align="center">
-  <sub>FIGURA X - Personass</sub><br>
+  <sub>FIGURA 1 - Personas</sub><br>
   <img src= "../assets/ana-paula.jpg" width="100%" 
   alt="Persona"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
@@ -71,10 +64,7 @@
 &emsp; O sistema de reserva de salas ajuda Ana a visualizar facilmente a disponibilidade dos espaços, realizar reservas em poucos cliques e filtrar opções conforme suas necessidades (capacidade, equipamentos, horários). Isso elimina conflitos, economiza tempo e melhora a organização das reuniões, tornando o ambiente de trabalho mais eficiente.
 
 
-### 2.2. User Stories (Semana 01)
-
-*Posicione aqui a lista de User Stories levantadas para o projeto. Siga o template de User Stories e utilize a referência USXX para numeração (US01, US02, US03, ...). Indique todas as User Stories mapeadas, mesmo aquelas que não forem implementadas ao longo do projeto. Não se esqueça de explicar o INVEST de 1 User Storie prioritária.*
-
+### 2.2. User Stories
 
 | ID | Descrição
 |------|----------------------------------------------------------------------------------------------------------------------------|
@@ -110,11 +100,7 @@ T – Testável:
 
 ## <a name="c3"></a>3. Projeto da Aplicação Web
 
-### 3.1. Modelagem do banco de dados  (Semana 3)
-
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
-
-### Diagrama Relacional
+### 3.1. Modelagem do banco de dados
 
 O sistema possui três entidades principais:
 - **users**: usuários do sistema
@@ -124,18 +110,17 @@ O sistema possui três entidades principais:
 O diagrama abaixo ilustra as tabelas e seus relacionamentos:
 
 <div align="center">
-  <sub>FIGURA X - Diagrama Banco de dados</sub><br>
+  <sub>FIGURA 2 - Diagrama Banco de dados</sub><br>
   <img src= "../modelo-banco.png" width="100%" 
   alt="Modelagem banco de dados"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
 </div>
----
 
-### Modelo Físico (Schema SQL)
+### Modelo Físico 
 
-O código SQL completo para a criação das tabelas do banco de dados encontra-se no arquivo [`modelo-banco.sql`](./modelo-banco.sql), localizado na raiz do repositório deste projeto.
+&emsp; O código SQL completo para a criação das tabelas do banco de dados encontra-se no arquivo [`modelo-banco.sql`](./modelo-banco.sql), localizado na raiz do repositório deste projeto.
 
-Para consultar a estrutura detalhada das tabelas e seus relacionamentos, acesse diretamente esse arquivo.
+&emsp; Para consultar a estrutura detalhada das tabelas e seus relacionamentos, acesse diretamente esse arquivo.
 
 https://github.com/clarabenito/Projeto-Individual-1B/blob/main/modelo-banco.sql
 
@@ -144,47 +129,88 @@ https://github.com/clarabenito/Projeto-Individual-1B/blob/main/modelo-banco.sql
 - Cada sala pode ser reservada múltiplas vezes (em horários diferentes).
 - Cada reserva está associada a um usuário e a uma sala específica.
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
-
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+
+O sistema utiliza o Prisma como ORM para interação com o banco de dados PostgreSQL. Os models principais são:
+
+**User Model:**
+```prisma
+model User {
+  id        String    @id @default(uuid())
+  nome      String
+  email     String    @unique
+  criado_em DateTime  @default(now())
+  bookings  Booking[]
+}
+```
+
+**Room Model:**
+```prisma
+model Room {
+  id          String    @id @default(uuid())
+  nome        String
+  descricao   String?
+  capacidade  Int
+  status      String    @default("disponivel")
+  bookings    Booking[]
+}
+```
+
+**Booking Model:**
+```prisma
+model Booking {
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [user_id], references: [id])
+  user_id      String
+  room         Room     @relation(fields: [room_id], references: [id])
+  room_id      String
+  data_reserva DateTime @default(now())
+  data_inicio  DateTime
+  data_fim     DateTime
+  status       String   @default("confirmada")
+}
+```
+
+&emsp; Os models foram implementados seguindo as melhores práticas do Prisma, com:
+- Relacionamentos adequados entre as entidades
+- Tipos de dados apropriados para cada campo
+- Valores padrão quando necessário
+- Constraints de unicidade e chaves estrangeiras
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+&emsp; O sistema segue a arquitetura MVC (Model-View-Controller) com Node.js e Express.js, utilizando PostgreSQL como sistema gerenciador de banco de dados e Prisma como ORM.
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+&emsp; A separação de responsabilidades entre as camadas facilita a manutenção e a escalabilidade da aplicação:
+- **Model**: armazena o modelo de negócios da aplicação, utilizando Prisma para interação com o banco
+- **View**: parte visual da aplicação (EJS)
+- **Controller**: intermediário entre Model e View
+- **Services**: camada adicional para lógica de negócios complexa
+- **Routes**: gerenciamento de rotas da aplicação
 
 ### 3.3. Wireframes (Semana 03)
 
-*Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).*
+&emsp; Os wireframes abaixo representam as principais telas da aplicação web **BookNow**, desenvolvida para facilitar a reserva de salas em ambientes corporativos e educacionais. A proposta é oferecer uma interface simples, intuitiva e funcional para os usuários realizarem reservas com rapidez e clareza.
 
-Os wireframes abaixo representam as principais telas da aplicação web **BookNow**, desenvolvida para facilitar a reserva de salas em ambientes corporativos e educacionais. A proposta é oferecer uma interface simples, intuitiva e funcional para os usuários realizarem reservas com rapidez e clareza.
-
-As telas foram desenhadas considerando os fluxos principais identificados nas User Stories:
+&emsp; As telas foram desenhadas considerando os fluxos principais identificados nas User Stories:
 
 **Tela 1 – Login**  
-Acesso ao sistema com campos para e-mail e senha,tro de novo usuário.
+&emsp; Acesso ao sistema com campos para e-mail e senha,tro de novo usuário.
 
 **Tela 2 – Salas e características**  
-Exibe todas as salas e seus atributos.
+&emsp; Exibe todas as salas e seus atributos.
 
 **Tela 3 – Calendário Geral de Reservas**   
-Visualização mensal com indicação de dias disponíveis e indisponíveis para reserva.
+&emsp; Visualização mensal com indicação de dias disponíveis e indisponíveis para reserva.
 
 **Tela 4 – Seleção de Dia e Horário por Sala**  
-Exibição detalhada da disponibilidade por sala e horário no dia selecionado, permitindo ao usuário escolher o melhor período para a reserva. 
+&emsp; Exibição detalhada da disponibilidade por sala e horário no dia selecionado, permitindo ao usuário escolher o melhor período para a reserva. 
 
 **Tela 5 - Confirmação de Reserva**
-Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário) e confirma a reserva. É possível adicionar uma descrição da reunião ou marcar participantes (não obrigatórios).
+&emsp; Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário) e confirma a reserva. É possível adicionar uma descrição da reunião ou marcar participantes (não obrigatórios).
 
 <div align="center">
-  <sub>FIGURA X - Wireframe</sub><br>
+  <sub>FIGURA 3 - Wireframe</sub><br>
   <img src= "../assets/calendario.png" width="100%" 
   alt="Wireframe"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
@@ -192,24 +218,24 @@ Tela final de agendamento, onde o usuário revisa os dados (sala, data, horário
 
 ### 3.4. Guia de estilos (Semana 05)
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
-
-O sistema utiliza uma identidade visual consistente baseada em tons de roxo e cinza:
+&emsp; O sistema utiliza uma identidade visual consistente baseada em tons de roxo e cinza:
 
 **Cores:**
 - Roxo Principal: #8D40A4
-- Roxo Secundário: #692D7E
-- Rosa Destaque: #A61C72
-- Cinza: #898989
+- Roxo Secundário: #B366C9
+- Cinza Escuro: #333333
+- Cinza Claro: #F5F5F5
+- Branco: #FFFFFF
+
 
 **Tipografia:**
-- Família: Positivus
+- Família: Roboto
 - Hierarquia:
-  - H1: Positivus (títulos principais)
-  - H2: Positivus (subtítulos)
-  - H3: Positivus (seções)
-  - H4: Positivus (subseções)
-  - p: Positivus (corpo do texto)
+  - H1: Roboto (títulos principais)
+  - H2: Roboto (subtítulos)
+  - H3: Roboto (seções)
+  - H4: Roboto (subseções)
+  - p: Roboto (corpo do texto)
 
   **Componentes:**
   - Logo: Ícone de livro estilizado com "BookNow"
@@ -224,7 +250,7 @@ O sistema utiliza uma identidade visual consistente baseada em tons de roxo e ci
   - Monitor para indicadores de equipamentos
 
 <div align="center">
-  <sub>FIGURA X - Guia de Estilos</sub><br>
+  <sub>FIGURA 4 - Guia de Estilos</sub><br>
   <img src= "../assets/tipografia.png" width="100%" 
   alt="guias de estilos"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
@@ -233,18 +259,15 @@ O sistema utiliza uma identidade visual consistente baseada em tons de roxo e ci
 
 ### 3.5. Protótipo de alta fidelidade (Semana 05)
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
-
-O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes telas principais:
+&emsp; O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes telas principais:
 
 **1. Tela de Login**
 - Logo BookNow no topo
 - Campos para email e senha
-- Botão "Sign in" em destaque
-- Interface limpa e minimalista
+- Botão "Entrar" em destaque
 
 **2. Lista de Salas**
-- Exibição em grid de 6 salas
+- Exibição em grid das salas
 - Cada sala mostra:
   - Número da sala
   - Capacidade (ícone de pessoa)
@@ -255,8 +278,8 @@ O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes t
 **3. Calendário de Reservas**
 - Visualização mensal completa
 - Legenda de disponibilidade:
-  - Roxo escuro: Disponível
-  - Rosa: Indisponível
+  - Verde: Disponível
+  - Vermelho: Indisponível
 - Seletor de horários na lateral direita
 - Indicadores visuais claros de status
 
@@ -269,12 +292,12 @@ O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes t
 - Botões de "Voltar" e "Confirmar"
 
 **5. Confirmação**
-- Ícone de check mark grande
+- Ícone de check grande
 - Mensagem de "SUCESSO!"
 - Design minimalista focado na confirmação
 
 <div align="center">
-  <sub>FIGURA X - Protótipo de Alta Fidelidade</sub><br>
+  <sub>FIGURA 5 - Protótipo de Alta Fidelidade</sub><br>
   <img src= "../assets/wf.png" width="100%" 
   alt="guias de estilos"><br>
   <sup>Fonte: Material produzido pela autora, 2025</sup>
@@ -283,7 +306,43 @@ O protótipo foi desenvolvido seguindo o guia de estilos e inclui as seguintes t
 
 ### 3.6. WebAPI e endpoints (Semana 05)
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+A API do BookNow segue o padrão REST e está documentada detalhadamente em: [Documentação da API](./api-docs.md)
+
+**Endpoints Principais:**
+
+1. **Autenticação**
+   - `POST /api/auth/login` - Login de usuário
+   - `POST /api/auth/register` - Registro de novo usuário
+   - `POST /api/auth/logout` - Logout de usuário
+
+2. **Usuários**
+   - `GET /api/users` - Lista todos os usuários (admin)
+   - `GET /api/users/:id` - Obtém dados de um usuário
+   - `PUT /api/users/:id` - Atualiza dados do usuário
+   - `DELETE /api/users/:id` - Remove usuário (admin)
+
+3. **Salas**
+   - `GET /api/rooms` - Lista todas as salas
+   - `GET /api/rooms/:id` - Obtém detalhes de uma sala
+   - `POST /api/rooms` - Cria nova sala (admin)
+   - `PUT /api/rooms/:id` - Atualiza dados da sala (admin)
+   - `DELETE /api/rooms/:id` - Remove sala (admin)
+
+4. **Reservas**
+   - `GET /api/bookings` - Lista reservas do usuário
+   - `GET /api/bookings/:id` - Obtém detalhes de uma reserva
+   - `POST /api/bookings` - Cria nova reserva
+   - `PUT /api/bookings/:id` - Atualiza reserva
+   - `DELETE /api/bookings/:id` - Cancela reserva
+
+5. **Calendário**
+   - `GET /api/calendar` - Obtém disponibilidade das salas
+   - `GET /api/calendar/room/:id` - Obtém agenda de uma sala
+   - `GET /api/calendar/user/:id` - Obtém agenda de um usuário
+
+&emsp; Cada endpoint retorna respostas no formato JSON e utiliza códigos HTTP apropriados para indicar o sucesso ou falha das operações.
+
+---
 
 ### 3.7 Interface e Navegação (Semana 07)
 
