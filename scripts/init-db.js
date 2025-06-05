@@ -1,67 +1,44 @@
-const { Pool } = require('pg');
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  password: process.env.DB_PASSWORD || 'postgres',
-  port: process.env.DB_PORT || 5432
-});
+const supabase = require('../config/database');
 
 async function initDB() {
-  try {
-    // Criar o banco de dados se não existir
-    await pool.query(`
-      CREATE DATABASE tarefas_db
-      WITH 
-      OWNER = postgres
-      ENCODING = 'UTF8'
-      LC_COLLATE = 'en_US.UTF-8'
-      LC_CTYPE = 'en_US.UTF-8'
-      TABLESPACE = pg_default
-      CONNECTION LIMIT = -1;
-    `);
-    console.log('Banco de dados criado com sucesso!');
+    try {
+        // Criar tabela de salas
+        const { error: salasError } = await supabase
+            .from('salas')
+            .insert([
+                {
+                    numero: '101',
+                    nome: 'Sala de Reunião 1',
+                    capacidade: 8,
+                    recursos: ['projetor', 'quadro'],
+                    descricao: 'Sala equipada com projetor e quadro branco'
+                },
+                {
+                    numero: '102',
+                    nome: 'Sala de Reunião 2',
+                    capacidade: 4,
+                    recursos: ['videoconferencia'],
+                    descricao: 'Sala para videoconferências'
+                },
+                {
+                    numero: '103',
+                    nome: 'Sala de Reunião 3',
+                    capacidade: 12,
+                    recursos: ['projetor', 'quadro', 'videoconferencia'],
+                    descricao: 'Sala grande com recursos completos'
+                }
+            ]);
 
-    // Conectar ao banco de dados tarefas_db
-    const client = new Pool({
-      user: process.env.DB_USER || 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      database: 'tarefas_db',
-      password: process.env.DB_PASSWORD || 'postgres',
-      port: process.env.DB_PORT || 5432
-    });
+        if (salasError) {
+            throw salasError;
+        }
 
-    // Ler e executar o arquivo SQL
-    const sqlFile = path.join(__dirname, '..', 'init.sql');
-    const createTableSQL = fs.readFileSync(sqlFile, 'utf8');
-    await client.query(createTableSQL);
-
-    console.log('Tabelas criadas com sucesso!');
-    process.exit(0);
-  } catch (err) {
-    if (err.code === '42P04') {
-      console.log('Banco de dados já existe, continuando com a criação das tabelas...');
-      const client = new Pool({
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'localhost',
-        database: 'tarefas_db',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432
-      });
-
-      const sqlFile = path.join(__dirname, '..', 'init.sql');
-      const createTableSQL = fs.readFileSync(sqlFile, 'utf8');
-      await client.query(createTableSQL);
-      console.log('Tabelas criadas com sucesso!');
-      process.exit(0);
-    } else {
-      console.error('Erro ao inicializar banco de dados:', err);
-      process.exit(1);
+        console.log('Banco de dados inicializado com sucesso!');
+        process.exit(0);
+    } catch (error) {
+        console.error('Erro ao inicializar banco de dados:', error.message);
+        process.exit(1);
     }
-  }
 }
 
-initDB(); 
+initDB();

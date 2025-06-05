@@ -47,4 +47,4 @@ class SalaController {
     }
 }
 
-module.exports = SalaController; 
+module.exports = SalaController;

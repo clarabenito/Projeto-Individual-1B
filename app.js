@@ -1,30 +1,13 @@
-// app.js
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const expressLayouts = require('express-ejs-layouts');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const authMiddleware = require('./middleware/auth');
 const app = express();
 
 // Configurações
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-// Configuração da sessão
-app.use(session({
-    secret: 'booknow-secret-key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas
-    }
-}));
 
 // Configuração do EJS
 app.set('view engine', 'ejs');
@@ -36,7 +19,7 @@ app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Rotas principais
+// Rotas
 app.get('/', (req, res) => {
     res.render('login', {
         title: 'Login - BookNow',
@@ -44,20 +27,9 @@ app.get('/', (req, res) => {
     });
 });
 
-// Rotas protegidas
-app.use('/salas', authMiddleware);
-app.use('/reservas', authMiddleware);
-app.use('/calendario', authMiddleware);
-
 app.get('/salas', (req, res) => {
     res.render('salas', {
         title: 'Salas - BookNow'
-    });
-});
-
-app.get('/reservas', (req, res) => {
-    res.render('minhas-reservas', {
-        title: 'Minhas Reservas - BookNow'
     });
 });
 
@@ -67,12 +39,67 @@ app.get('/calendario', (req, res) => {
     });
 });
 
-// Tratamento de erro 404
-app.use((req, res) => {
-    res.status(404).render('404', {
-        title: 'Página não encontrada - BookNow',
+app.get('/detalhes', (req, res) => {
+    res.render('detalhes', {
+        title: 'Detalhes da Reserva - BookNow'
+    });
+});
+
+app.get('/sucesso', (req, res) => {
+    res.render('sucesso', {
+        title: 'Reserva Confirmada - BookNow',
         layout: false
     });
+});
+
+// API Routes
+app.get('/api/salas', (req, res) => {
+    res.json([
+        {
+            id: 1,
+            nome: 'Sala 1',
+            capacidade: 4,
+            recursos: ['projetor']
+        },
+        {
+            id: 2,
+            nome: 'Sala 2',
+            capacidade: 6,
+            recursos: ['projetor']
+        },
+        {
+            id: 3,
+            nome: 'Sala 3',
+            capacidade: 4,
+            recursos: ['projetor']
+        },
+        {
+            id: 4,
+            nome: 'Sala 4',
+            capacidade: 8,
+            recursos: ['projetor', 'projetor']
+        },
+        {
+            id: 5,
+            nome: 'Sala 5',
+            capacidade: 6,
+            recursos: ['projetor']
+        },
+        {
+            id: 6,
+            nome: 'Sala 6',
+            capacidade: 4,
+            recursos: ['projetor']
+        }
+    ]);
+});
+
+app.get('/api/reservas', (req, res) => {
+    res.json([]);
+});
+
+app.post('/api/reservas', (req, res) => {
+    res.status(201).json({ message: 'Reserva criada com sucesso' });
 });
 
 // Error handling
