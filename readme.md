@@ -20,7 +20,7 @@ Além de facilitar o controle de reservas, o sistema contribui para a organizaç
 - Jest (Testes)
 - CSS/Bootstrap
 
-##  Modelo Relacional do Banco de Dados
+## Modelo Relacional do Banco de Dados
 
 A imagem abaixo representa a modelagem relacional utilizada na aplicação BookNow:
 
@@ -111,6 +111,31 @@ Projeto-Individual-1B/
 - `npm run init-db`: Inicializa o banco de dados
 - `npm run prisma:generate`: Gera os clients do Prisma
 - `npm run prisma:migrate`: Executa as migrações do banco
+
+## Guia de Estilos
+
+O sistema utiliza uma identidade visual consistente baseada em tons de roxo e cinza:
+
+**Cores:**
+- Roxo Principal: #8D40A4
+- Roxo Secundário: #B366C9
+- Cinza Escuro: #333333
+- Cinza Claro: #F5F5F5
+- Branco: #FFFFFF
+
+**Tipografia:**
+- Fonte Principal: Roboto
+- Fonte Secundária: Open Sans
+
+**Componentes:**
+- Botões: Bordas arredondadas, com hover effect
+- Cards: Sombra suave, cantos arredondados
+- Formulários: Campos com bordas suaves e feedback visual
+- Ícones: Material Design Icons
+
+## Documentação
+
+Para mais detalhes sobre o projeto, consulte a documentação completa no arquivo [WAD.md](./documentos/WAD.md).
 
 ## Licença
 
