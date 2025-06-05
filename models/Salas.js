@@ -57,4 +57,4 @@ class Sala {
     }
 }
 
-module.exports = Sala; 
+module.exports = Sala;

@@ -1,40 +1,33 @@
-<div class="calendario-container">
-    <h1 class="h2 mb-4">Calendário</h1>
-
+<div class="container my-4">
     <div class="row">
-        <div class="col-md-9">
-            <div class="calendario-grid">
-                <div class="calendario-header">
-                    <div class="dias-semana">
-                        <div>domingo</div>
-                        <div>segunda</div>
-                        <div>terça</div>
-                        <div>quarta</div>
-                        <div>quinta</div>
-                        <div>sexta</div>
-                        <div>sábado</div>
-                    </div>
-                </div>
-                <div class="calendario-dias" id="calendarioDias">
-                    <!-- Os dias serão inseridos via JavaScript -->
+        <div class="col-md-8">
+            <div class="card p-4">
+                <h2 class="mb-3" style="color: #8D40A4; font-weight: bold;">Calendário</h2>
+                <table class="table table-bordered text-center align-middle" style="background: #fff;">
+                    <thead>
+                        <tr style="background: #f5e6ff;">
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sáb</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaCalendario">
+                        <!-- Dias do calendário serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+                <div class="d-flex gap-3 mt-2">
+                    <span><span style="display:inline-block;width:18px;height:18px;background:#4CAF50;border-radius:4px;margin-right:4px;"></span>Disponível</span>
+                    <span><span style="display:inline-block;width:18px;height:18px;background:#F44336;border-radius:4px;margin-right:4px;"></span>Indisponível</span>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3">
-            <div class="legenda-container">
-                <div class="legenda-item">
-                    <div class="cor-legenda disponivel"></div>
-                    <span>Disponível</span>
-                </div>
-                <div class="legenda-item">
-                    <div class="cor-legenda indisponivel"></div>
-                    <span>Indisponível</span>
-                </div>
-            </div>
-
-            <div class="horarios-container mt-4">
-                <h3 class="h5 mb-3">Selecionar horário:</h3>
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h3 class="h5 mb-3" style="color: #8D40A4; font-weight: bold;">Selecionar horário:</h3>
                 <select class="form-select mb-3" id="horarioSelect">
                     <option value="8:00">8:00</option>
                     <option value="9:00">9:00</option>
@@ -56,63 +49,73 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const calendarioDias = document.getElementById('calendarioDias');
+    const tabela = document.getElementById('tabelaCalendario');
     const hoje = new Date();
     const mes = hoje.getMonth();
     const ano = hoje.getFullYear();
-
-    // Primeiro dia do mês
     const primeiroDia = new Date(ano, mes, 1);
-    // Último dia do mês
     const ultimoDia = new Date(ano, mes + 1, 0);
+    let diaSemana = primeiroDia.getDay();
+    let linha = document.createElement('tr');
 
-    // Preenche os dias vazios no início
-    for (let i = 0; i < primeiroDia.getDay(); i++) {
-        const diaVazio = document.createElement('div');
-        diaVazio.className = 'dia vazio';
-        calendarioDias.appendChild(diaVazio);
+    // Preenche os dias vazios do início
+    for (let i = 0; i < diaSemana; i++) {
+        linha.appendChild(document.createElement('td'));
     }
 
-    // Preenche os dias do mês
     for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
-        const diaElement = document.createElement('div');
-        diaElement.className = 'dia';
-        diaElement.textContent = dia;
-        
-        // Adiciona classe disponível/indisponível aleatoriamente (exemplo)
+        const td = document.createElement('td');
+        td.textContent = dia;
+        // Aleatório: disponível (verde) ou indisponível (vermelho)
         if (Math.random() > 0.5) {
-            diaElement.classList.add('disponivel');
+            td.style.background = '#4CAF50';
+            td.style.color = '#fff';
+            td.classList.add('disponivel');
+            td.style.cursor = 'pointer';
         } else {
-            diaElement.classList.add('indisponivel');
+            td.style.background = '#F44336';
+            td.style.color = '#fff';
+            td.classList.add('indisponivel');
         }
-
-        diaElement.addEventListener('click', function() {
-            if (this.classList.contains('disponivel')) {
-                document.querySelectorAll('.dia').forEach(d => d.classList.remove('selecionado'));
-                this.classList.add('selecionado');
+        td.style.fontWeight = 'bold';
+        td.style.fontSize = '1.1em';
+        td.style.borderRadius = '6px';
+        td.onclick = function() {
+            if (td.classList.contains('disponivel')) {
+                document.querySelectorAll('.disponivel').forEach(d => d.style.outline = '');
+                td.style.outline = '3px solid #692D7E';
+                td.style.outlineOffset = '2px';
+                td.classList.add('selecionado');
             }
-        });
-
-        calendarioDias.appendChild(diaElement);
+        };
+        linha.appendChild(td);
+        diaSemana++;
+        if (diaSemana > 6) {
+            tabela.appendChild(linha);
+            linha = document.createElement('tr');
+            diaSemana = 0;
+        }
+    }
+    // Preenche os dias vazios do final
+    if (diaSemana !== 0) {
+        for (let i = diaSemana; i < 7; i++) {
+            linha.appendChild(document.createElement('td'));
+        }
+        tabela.appendChild(linha);
     }
 });
 
 function selecionarHorario() {
     const horarioSelect = document.getElementById('horarioSelect');
     const horario = horarioSelect.value;
-    const diaSelecionado = document.querySelector('.dia.selecionado');
-    
+    const diaSelecionado = document.querySelector('.disponivel[style*="outline"]');
     if (!diaSelecionado) {
         alert('Por favor, selecione um dia disponível primeiro.');
         return;
     }
-
-    // Salva a data e horário selecionados
     const data = diaSelecionado.textContent;
     localStorage.setItem('dataSelecionada', data);
     localStorage.setItem('horarioSelecionado', horario);
-
-    // Redireciona para a página de detalhes
     window.location.href = '/detalhes';
 }
-</script> 
+</script>
