@@ -1,24 +1,43 @@
-class User {
-    constructor(nome, email, senha) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-    }
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
+class User {
     static async create(data) {
-        // Aqui seria a lógica para criar um usuário no banco
-        const user = new User(data.nome, data.email, data.senha);
-        return user;
+        return await prisma.users.create({
+            data: {
+                nome: data.nome,
+                email: data.email
+            }
+        });
     }
 
     static async findByEmail(email) {
-        // Aqui seria a lógica para buscar um usuário pelo email
-        return null;
+        return await prisma.users.findUnique({
+            where: { email }
+        });
     }
 
     static async findById(id) {
-        // Aqui seria a lógica para buscar um usuário pelo ID
-        return null;
+        return await prisma.users.findUnique({
+            where: { id }
+        });
+    }
+
+    static async findAll() {
+        return await prisma.users.findMany();
+    }
+
+    static async update(id, data) {
+        return await prisma.users.update({
+            where: { id },
+            data
+        });
+    }
+
+    static async delete(id) {
+        return await prisma.users.delete({
+            where: { id }
+        });
     }
 }
 

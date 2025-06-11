@@ -1,8 +1,39 @@
 **Desenvolvido por [Clara Benito](http://www.linkedin.com/in/clara-benito)**
 
-# BookNow – Sistema de Reservas Online
+# Sistema de Reservas de Salas
 
-Sistema web para gerenciamento de reservas de salas, desenvolvido em Node.js com Express, EJS, Prisma e PostgreSQL, seguindo o padrão MVC.
+Este sistema permite reservar salas, bloqueando horários já reservados. O calendário mostra apenas horários realmente disponíveis. O backend utiliza UUID para identificar salas e usuários. O usuário de teste é criado automaticamente ao acessar o sistema.
+
+## Como funciona
+- O calendário só bloqueia dias/horários realmente reservados.
+- Ao reservar, o horário é bloqueado imediatamente.
+- O sistema usa UUID para identificar salas e usuários.
+- O usuário de teste é criado automaticamente.
+
+## Instalação e uso
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+2. Configure o banco local (PostgreSQL) e rode as migrações:
+   ```bash
+   npx prisma migrate dev
+   ```
+3. Inicie o servidor:
+   ```bash
+   npm start
+   ```
+4. Acesse em [http://localhost:3000](http://localhost:3000)
+
+## Endpoints principais
+- `POST /api/users` — cria usuário
+- `GET /api/rooms` — lista salas (com UUID)
+- `POST /api/bookings` — cria reserva
+- `GET /api/bookings/sala/:roomId?start=YYYY-MM-DD&end=YYYY-MM-DD` — busca reservas de uma sala
+
+## Observações
+- O sistema está pronto para uso local e pode ser adaptado para produção.
+- O WAD/documentação técnica está atualizada para refletir o fluxo real do sistema.
 
 ## Descrição do Sistema
 
@@ -13,12 +44,109 @@ Além de facilitar o controle de reservas, o sistema contribui para a organizaç
 ## Tecnologias Utilizadas
 
 - Node.js
-- Express.js
-- EJS (Template Engine)
-- Prisma (ORM)
+- Express
 - PostgreSQL
-- Jest (Testes)
-- CSS/Bootstrap
+- Prisma ORM
+- Jest (para testes)
+
+## Estrutura do Projeto
+
+O projeto segue a arquitetura MVC (Model-View-Controller):
+
+```
+├── controllers/     # Controladores da aplicação
+├── models/         # Modelos do banco de dados
+├── views/          # Views da aplicação
+├── routes/         # Rotas da API
+├── prisma/         # Configuração do Prisma ORM
+├── tests/          # Testes automatizados
+└── config/         # Configurações da aplicação
+```
+
+## Configuração do Banco de Dados
+
+O sistema utiliza PostgreSQL como banco de dados. As tabelas principais são:
+
+1. `users` - Armazena informações dos usuários
+   - id (UUID)
+   - nome (text)
+   - email (text)
+   - criado_em (timestamp)
+
+2. `rooms` - Armazena informações das salas
+   - id (UUID)
+   - nome (text)
+   - descricao (text)
+   - capacidade (integer)
+   - status (text)
+
+3. `bookings` - Armazena as reservas
+   - id (UUID)
+   - user_id (UUID)
+   - room_id (UUID)
+   - data_reserva (timestamp)
+   - data_inicio (timestamp)
+   - data_fim (timestamp)
+   - status (text)
+
+## Instalação
+
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Configure as variáveis de ambiente:
+   ```bash
+   cp .env.example .env
+   ```
+4. Configure a variável `DATABASE_URL` no arquivo `.env`
+5. Execute as migrações:
+   ```bash
+   npx prisma migrate dev
+   ```
+6. Inicie o servidor:
+   ```bash
+   npm start
+   ```
+
+## API Endpoints
+
+### Usuários
+- `POST /api/users` - Criar novo usuário
+- `GET /api/users` - Listar todos os usuários
+- `GET /api/users/:id` - Buscar usuário por ID
+- `PUT /api/users/:id` - Atualizar usuário
+- `DELETE /api/users/:id` - Deletar usuário
+
+### Salas
+- `POST /api/rooms` - Criar nova sala
+- `GET /api/rooms` - Listar todas as salas
+- `GET /api/rooms/:id` - Buscar sala por ID
+- `PUT /api/rooms/:id` - Atualizar sala
+- `DELETE /api/rooms/:id` - Deletar sala
+
+### Reservas
+- `POST /api/bookings` - Criar nova reserva
+- `GET /api/bookings` - Listar todas as reservas
+- `GET /api/bookings/:id` - Buscar reserva por ID
+- `PUT /api/bookings/:id` - Atualizar reserva
+- `DELETE /api/bookings/:id` - Deletar reserva
+
+## Testes
+
+Para executar os testes:
+```bash
+npm test
+```
+
+## Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
 
 ## Modelo Relacional do Banco de Dados
 

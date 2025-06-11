@@ -1,10 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model users {
+  id        String    @id @default(uuid())
+  nome      String
+  email     String    @unique
+  criado_em DateTime  @default(now()) @map("criado_em")
+  bookings  bookings[]
+
+  @@map("users")
+}
+
+model rooms {
+  id          String    @id @default(uuid())
+  nome        String
+  descricao   String?
+  capacidade  Int
+  status      String    @default("disponivel")
+  bookings    bookings[]
+
+  @@map("rooms")
+}
+
+model bookings {
+  id           String   @id @default(uuid())
+  user_id      String
+  room_id      String
+  data_reserva DateTime @default(now()) @map("data_reserva")
+  data_inicio  DateTime @map("data_inicio")
+  data_fim     DateTime @map("data_fim")
+  status       String   @default("confirmada")
+  user         users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  room         rooms    @relation(fields: [room_id], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
 }
 

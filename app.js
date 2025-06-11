@@ -52,55 +52,14 @@ app.get('/sucesso', (req, res) => {
     });
 });
 
-// API Routes
-app.get('/api/salas', (req, res) => {
-    res.json([
-        {
-            id: 1,
-            nome: 'Sala 1',
-            capacidade: 4,
-            recursos: ['projetor']
-        },
-        {
-            id: 2,
-            nome: 'Sala 2',
-            capacidade: 6,
-            recursos: ['projetor']
-        },
-        {
-            id: 3,
-            nome: 'Sala 3',
-            capacidade: 4,
-            recursos: ['projetor']
-        },
-        {
-            id: 4,
-            nome: 'Sala 4',
-            capacidade: 8,
-            recursos: ['projetor', 'projetor']
-        },
-        {
-            id: 5,
-            nome: 'Sala 5',
-            capacidade: 6,
-            recursos: ['projetor']
-        },
-        {
-            id: 6,
-            nome: 'Sala 6',
-            capacidade: 4,
-            recursos: ['projetor']
-        }
-    ]);
-});
+// Rotas REST reais
+const userRoutes = require('./routes/userRoutes');
+const roomRoutes = require('./routes/roomRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
-app.get('/api/reservas', (req, res) => {
-    res.json([]);
-});
-
-app.post('/api/reservas', (req, res) => {
-    res.status(201).json({ message: 'Reserva criada com sucesso' });
-});
+app.use('/api/users', userRoutes);
+app.use('/api/rooms', roomRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

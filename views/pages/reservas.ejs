@@ -15,7 +15,6 @@
                             <th>Sala</th>
                             <th>Data</th>
                             <th>Horário</th>
-                            <th>Pessoas</th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
@@ -24,12 +23,11 @@
                         <% if (reservas && reservas.length > 0) { %>
                             <% reservas.forEach(function(reserva) { %>
                                 <tr>
-                                    <td><%= reserva.salas.nome %></td>
-                                    <td><%= new Date(reserva.data).toLocaleDateString('pt-BR') %></td>
-                                    <td><%= reserva.horario %></td>
-                                    <td><%= reserva.numero_pessoas %> pessoas</td>
+                                    <td><%= reserva.room ? reserva.room.nome : '-' %></td>
+                                    <td><%= new Date(reserva.data_inicio).toLocaleDateString('pt-BR') %></td>
+                                    <td><%= new Date(reserva.data_inicio).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) %> - <%= new Date(reserva.data_fim).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) %></td>
                                     <td>
-                                        <span class="badge <%= reserva.status === 'Confirmada' ? 'bg-success' : 'bg-warning' %>">
+                                        <span class="badge <%= reserva.status === 'confirmada' ? 'bg-success' : 'bg-warning' %>">
                                             <%= reserva.status %>
                                         </span>
                                     </td>
@@ -42,7 +40,7 @@
                             <% }); %>
                         <% } else { %>
                             <tr>
-                                <td colspan="6" class="text-center">
+                                <td colspan="5" class="text-center">
                                     <p class="mb-3">Você ainda não tem reservas.</p>
                                     <a href="/salas" class="btn btn-primary" style="background-color: #8D40A4; border-color: #8D40A4;">
                                         Faça sua primeira reserva

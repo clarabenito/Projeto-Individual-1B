@@ -18,6 +18,14 @@
 
 &emsp; O projeto individual consiste no desenvolvimento de um **Sistema de Reserva de Salas** para ambientes corporativos e educacionais. O objetivo é facilitar o agendamento, gerenciamento e controle de uso de salas, proporcionando mais organização e produtividade para os usuários. O sistema permitirá que colaboradores consultem a disponibilidade, filtrem as salas e realizem reservas de forma simples e eficiente, evitando conflitos de horários e otimizando o uso dos espaços.
 
+## Atualização do funcionamento do sistema
+
+- O calendário bloqueia automaticamente horários já reservados, mostrando apenas horários realmente disponíveis.
+- O sistema utiliza UUID para identificar salas e usuários.
+- O usuário de teste é criado automaticamente ao acessar o sistema.
+- O fluxo de reserva está 100% integrado ao banco de dados local.
+- O README foi atualizado para instruções de uso local e fluxo real.
+
 ---
 
 ## <a name="c2"></a>2. Visão Geral da Aplicação Web

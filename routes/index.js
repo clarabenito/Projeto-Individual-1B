@@ -1,31 +1,14 @@
 // routes/index.js
 const express = require('express');
 const router = express.Router();
-const { supabase } = require('../lib/supabase');
+const Booking = require('../models/Booking');
+const Room = require('../models/Room');
 
-// Rota para listar reservas
+// Rota para listar reservas (histórico)
 router.get('/reservas', async (req, res) => {
     try {
-        const { data: reservas, error } = await supabase
-            .from('reservas')
-            .select(`
-                id,
-                sala_id,
-                data,
-                horario,
-                numero_pessoas,
-                status,
-                salas (
-                    nome
-                )
-            `)
-            .order('data', { ascending: true });
-
-        if (error) {
-            res.render('pages/reservas', { reservas: [] });
-            return;
-        }
-
+        // Busca todas as reservas, incluindo dados da sala
+        const reservas = await Booking.findAll();
         res.render('pages/reservas', { reservas });
     } catch (error) {
         res.render('pages/reservas', { reservas: [] });

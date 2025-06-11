@@ -38,7 +38,13 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+const mapaSalas = {
+    1: 'dc05fc76-f216-46f6-aaa9-8234a84c6901',
+    2: '9d6e4308-544d-40fa-8d4c-c6e6ece156a5',
+    3: '23146897-eecc-4441-adad-60aa3c15a9ef'
+};
+
+document.addEventListener('DOMContentLoaded', async function() {
     // Recupera os dados salvos
     const sala = localStorage.getItem('salaSelecionada');
     const data = localStorage.getItem('dataSelecionada');
@@ -51,10 +57,95 @@ document.addEventListener('DOMContentLoaded', function() {
     if (horario) {
         document.getElementById('horarioInfo').textContent = horario;
     }
+
+    // Cria usuário de teste automaticamente se não existir
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        try {
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome: 'Usuário Teste', email: 'teste@teste.com' })
+            });
+            if (res.ok) {
+                const user = await res.json();
+                userId = user.id;
+                localStorage.setItem('userId', userId);
+            } else {
+                // Se já existe, busca pelo email
+                const resBusca = await fetch('/api/users');
+                if (resBusca.ok) {
+                    const users = await resBusca.json();
+                    const user = users.find(u => u.email === 'teste@teste.com');
+                    if (user) {
+                        userId = user.id;
+                        localStorage.setItem('userId', userId);
+                    }
+                }
+            }
+        } catch (e) {
+            alert('Erro ao criar usuário de teste!');
+        }
+    }
 });
 
-function confirmarReserva() {
-    // Aqui você faria a chamada à API para criar a reserva
-    window.location.href = '/sucesso';
+async function confirmarReserva() {
+    // Pegue os dados salvos
+    const sala = localStorage.getItem('salaSelecionada');
+    const data = localStorage.getItem('dataSelecionada');
+    const horario = localStorage.getItem('horarioSelecionado');
+    let userId = localStorage.getItem('userId');
+
+    if (!userId) {
+        alert('Usuário de teste não encontrado!');
+        return;
+    }
+
+    // Monta a data/hora de início e fim usando Date().toISOString()
+    const ano = new Date().getFullYear();
+    const mes = String(new Date().getMonth() + 1).padStart(2, '0');
+    const dia = String(data).padStart(2, '0');
+    const [h, m] = horario.split(':');
+    const horaInicio = Number(h);
+    const horaFim = horaInicio + 1;
+    const horaInicioStr = String(horaInicio).padStart(2, '0');
+    const horaFimStr = String(horaFim).padStart(2, '0');
+    const dataInicioObj = new Date(`${ano}-${mes}-${dia}T${horaInicioStr}:${m}:00Z`);
+    const dataFimObj = new Date(`${ano}-${mes}-${dia}T${horaFimStr}:${m}:00Z`);
+    const dataInicio = dataInicioObj.toISOString();
+    const dataFim = dataFimObj.toISOString();
+
+    // Log para depuração
+    console.log('Reserva:', {
+        user_id: userId,
+        room_id: mapaSalas[sala],
+        data_inicio: dataInicio,
+        data_fim: dataFim
+    });
+
+    // Usa o UUID correto da sala
+    const roomId = mapaSalas[sala];
+    if (!roomId) {
+        alert('Sala inválida!');
+        return;
+    }
+
+    fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            user_id: userId,
+            room_id: roomId,
+            data_inicio: dataInicio,
+            data_fim: dataFim
+        })
+    })
+    .then(res => {
+        if (res.ok) {
+            window.location.href = '/sucesso';
+        } else {
+            alert('Erro ao salvar reserva!');
+        }
+    });
 }
 </script>
