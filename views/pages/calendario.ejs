@@ -2,24 +2,36 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card p-4">
-                <h2 class="mb-3" style="color: #8D40A4; font-weight: bold;">Calendário</h2>
-                <table class="table table-bordered text-center align-middle" style="background: #fff;">
-                    <thead>
-                        <tr style="background: #f5e6ff;">
-                            <th>Dom</th>
-                            <th>Seg</th>
-                            <th>Ter</th>
-                            <th>Qua</th>
-                            <th>Qui</th>
-                            <th>Sex</th>
-                            <th>Sáb</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaCalendario">
-                        <!-- Dias do calendário serão inseridos via JavaScript -->
-                    </tbody>
-                </table>
-                <div class="d-flex gap-3 mt-2">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0" style="color: #8D40A4; font-weight: bold;">Calendário</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary" id="prevMonth">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-outline-primary" id="nextMonth">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar-container">
+                    <table class="table table-bordered text-center align-middle" style="background: #fff;">
+                        <thead>
+                            <tr style="background: #f5e6ff;">
+                                <th>Dom</th>
+                                <th>Seg</th>
+                                <th>Ter</th>
+                                <th>Qua</th>
+                                <th>Qui</th>
+                                <th>Sex</th>
+                                <th>Sáb</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaCalendario">
+                            <!-- Dias do calendário serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex gap-3 mt-3">
                     <span><span style="display:inline-block;width:18px;height:18px;background:#4CAF50;border-radius:4px;margin-right:4px;"></span>Disponível</span>
                     <span><span style="display:inline-block;width:18px;height:18px;background:#F44336;border-radius:4px;margin-right:4px;"></span>Indisponível</span>
                 </div>
@@ -47,129 +59,212 @@
     </div>
 </div>
 
+<style>
+.calendar-container {
+    overflow-x: auto;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    padding: 12px;
+    font-weight: 600;
+    color: #8D40A4;
+}
+
+.table td {
+    padding: 15px;
+    height: 80px;
+    vertical-align: top;
+    position: relative;
+}
+
+.dia-calendario {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dia-calendario.disponivel {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dia-calendario.indisponivel {
+    background-color: #F44336;
+    color: white;
+    cursor: not-allowed;
+}
+
+.dia-calendario.selecionado {
+    outline: 3px solid #8D40A4;
+    outline-offset: 2px;
+}
+
+.dia-calendario:hover:not(.indisponivel) {
+    transform: scale(1.1);
+}
+
+.dia-vazio {
+    background: none;
+    cursor: default;
+}
+
+.btn-outline-primary {
+    color: #8D40A4;
+    border-color: #8D40A4;
+}
+
+.btn-outline-primary:hover {
+    background-color: #8D40A4;
+    border-color: #8D40A4;
+    color: white;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
     const tabela = document.getElementById('tabelaCalendario');
-    const hoje = new Date();
-    const mes = hoje.getMonth();
-    const ano = hoje.getFullYear();
-    const primeiroDia = new Date(ano, mes, 1);
-    const ultimoDia = new Date(ano, mes + 1, 0);
-    let diaSemana = primeiroDia.getDay();
-    let linha = document.createElement('tr');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    let currentDate = new Date();
 
-    // Pegue o roomId do localStorage ou de outra fonte
-    const roomId = localStorage.getItem('salaSelecionada');
-    // Formate datas para o período do mês
-    const start = `${ano}-${String(mes+1).padStart(2, '0')}-01`;
-    const end = `${ano}-${String(mes+1).padStart(2, '0')}-${String(ultimoDia.getDate()).padStart(2, '0')}`;
+    function updateCalendar() {
+        const mes = currentDate.getMonth();
+        const ano = currentDate.getFullYear();
+        const primeiroDia = new Date(ano, mes, 1);
+        const ultimoDia = new Date(ano, mes + 1, 0);
+        let diaSemana = primeiroDia.getDay();
+        let linha = document.createElement('tr');
 
-    // Busque reservas reais do banco (se houver sala selecionada)
-    let reservas = [];
-    if (roomId) {
-        try {
-            const res = await fetch(`/api/bookings/sala/${roomId}?start=${start}&end=${end}`);
-            reservas = await res.json();
-        } catch (e) {
-            reservas = [];
+        // Limpa o calendário
+        tabela.innerHTML = '';
+
+        // Preenche os dias vazios do início
+        for (let i = 0; i < diaSemana; i++) {
+            const td = document.createElement('td');
+            td.className = 'dia-vazio';
+            linha.appendChild(td);
         }
-    }
 
-    // Função para checar se o dia/horário está reservado
-    function isDiaHorarioReservado(dia, horario) {
-        const dataDia = new Date(ano, mes, dia);
-        return reservas.some(r => {
-            const inicio = new Date(r.data_inicio);
-            const fim = new Date(r.data_fim);
-            // Se o dia está entre o início e o fim da reserva
-            return (
-                dataDia.getFullYear() === inicio.getFullYear() &&
-                dataDia.getMonth() === inicio.getMonth() &&
-                dataDia.getDate() === inicio.getDate()
-            );
-        });
-    }
+        // Variável global para armazenar o dia selecionado
+        window.diaSelecionadoCalendario = null;
 
-    // Preenche os dias vazios do início
-    for (let i = 0; i < diaSemana; i++) {
-        linha.appendChild(document.createElement('td'));
-    }
+        // Adiciona os dias do mês
+        for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+            const td = document.createElement('td');
+            const diaElement = document.createElement('div');
+            diaElement.className = 'dia-calendario';
+            diaElement.textContent = dia;
 
-    // Variável global para armazenar o dia selecionado
-    window.diaSelecionadoCalendario = null;
+            // Verifica se o dia está reservado
+            if (isDiaReservado(dia, mes, ano)) {
+                diaElement.classList.add('indisponivel');
+            } else {
+                diaElement.classList.add('disponivel');
+                diaElement.onclick = function() {
+                    // Remove seleção anterior
+                    document.querySelectorAll('.dia-calendario.selecionado').forEach(d => {
+                        d.classList.remove('selecionado');
+                    });
+                    diaElement.classList.add('selecionado');
+                    window.diaSelecionadoCalendario = dia;
+                    window.atualizarHorariosDisponiveis(dia);
+                };
+            }
 
-    for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
-        const td = document.createElement('td');
-        td.textContent = dia;
+            td.appendChild(diaElement);
+            linha.appendChild(td);
+            diaSemana++;
 
-        // Verifica se o dia está reservado para qualquer horário
-        if (roomId && isDiaHorarioReservado(dia)) {
-            td.style.background = '#F44336';
-            td.style.color = '#fff';
-            td.classList.add('indisponivel');
-        } else {
-            td.style.background = '#4CAF50';
-            td.style.color = '#fff';
-            td.style.cursor = 'pointer';
-            td.classList.add('disponivel');
-            td.onclick = function() {
-                // Remove seleção anterior
-                document.querySelectorAll('.disponivel.selecionado').forEach(d => {
-                    d.classList.remove('selecionado');
-                    d.style.outline = '';
-                });
-                td.classList.add('selecionado');
-                td.style.outline = '3px solid #692D7E';
-                td.style.outlineOffset = '2px';
-                window.diaSelecionadoCalendario = dia;
-                window.atualizarHorariosDisponiveis(dia);
-            };
+            if (diaSemana > 6) {
+                tabela.appendChild(linha);
+                linha = document.createElement('tr');
+                diaSemana = 0;
+            }
         }
-        td.style.fontWeight = 'bold';
-        td.style.fontSize = '1.1em';
-        td.style.borderRadius = '6px';
-        linha.appendChild(td);
-        diaSemana++;
-        if (diaSemana > 6) {
+
+        // Preenche os dias vazios do final
+        if (diaSemana !== 0) {
+            for (let i = diaSemana; i < 7; i++) {
+                const td = document.createElement('td');
+                td.className = 'dia-vazio';
+                linha.appendChild(td);
+            }
             tabela.appendChild(linha);
-            linha = document.createElement('tr');
-            diaSemana = 0;
         }
     }
-    // Preenche os dias vazios do final
-    if (diaSemana !== 0) {
-        for (let i = diaSemana; i < 7; i++) {
-            linha.appendChild(document.createElement('td'));
-        }
-        tabela.appendChild(linha);
+
+    // Função para verificar se um dia está reservado
+    function isDiaReservado(dia, mes, ano) {
+        // Aqui você pode implementar a lógica para verificar reservas reais
+        // Por enquanto, vamos usar um valor aleatório para demonstração
+        return Math.random() > 0.7;
     }
 
-    // Opcional: aviso se nenhuma sala foi selecionada
-    if (!roomId) {
-        const aviso = document.createElement('div');
-        aviso.className = 'alert alert-warning mt-3';
-        aviso.textContent = 'Selecione uma sala antes de visualizar o calendário.';
-        tabela.parentElement.appendChild(aviso);
-    }
+    // Event listeners para navegação do calendário
+    prevMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        updateCalendar();
+    });
 
-    // Adicione este código para atualizar horários ao selecionar um dia
-    window.atualizarHorariosDisponiveis = async function(diaSelecionado) {
-        const roomId = localStorage.getItem('salaSelecionada');
-        const ano = new Date().getFullYear();
-        const mes = String(new Date().getMonth() + 1).padStart(2, '0');
-        const dia = String(diaSelecionado).padStart(2, '0');
-        const dataDia = `${ano}-${mes}-${dia}`;
+    nextMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        updateCalendar();
+    });
+
+    // Inicializa o calendário
+    updateCalendar();
+});
+
+function selecionarHorario() {
+    const horarioSelect = document.getElementById('horarioSelect');
+    const horario = horarioSelect.value;
+    const diaSelecionado = window.diaSelecionadoCalendario;
+    
+    if (!diaSelecionado) {
+        alert('Por favor, selecione um dia disponível primeiro.');
+        return;
+    }
+    
+    if (!horario || horario === '' || horario === 'Nenhum horário disponível') {
+        alert('Por favor, selecione um horário disponível.');
+        return;
+    }
+    
+    localStorage.setItem('dataSelecionada', diaSelecionado);
+    localStorage.setItem('horarioSelecionado', horario);
+    window.location.href = '/detalhes';
+}
+
+// Função para atualizar horários disponíveis
+window.atualizarHorariosDisponiveis = async function(diaSelecionado) {
+    const roomId = localStorage.getItem('salaSelecionada');
+    const ano = new Date().getFullYear();
+    const mes = String(new Date().getMonth() + 1).padStart(2, '0');
+    const dia = String(diaSelecionado).padStart(2, '0');
+    const dataDia = `${ano}-${mes}-${dia}`;
+    
+    try {
         const res = await fetch(`/api/bookings/sala/${roomId}?start=${dataDia}&end=${dataDia}`);
         const reservas = await res.json();
-        console.log('Reservas para o dia:', reservas);
-
-        // Horários possíveis
+        
         const horarios = [
             "08:00", "09:00", "10:00", "11:00", "12:00",
             "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
         ];
 
-        // Filtra horários já reservados
         const horariosReservados = reservas.map(r => {
             const d = new Date(r.data_inicio);
             return d.toTimeString().slice(0,5);
@@ -178,6 +273,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const select = document.getElementById('horarioSelect');
         select.innerHTML = '';
         let algumDisponivel = false;
+        
         horarios.forEach(horario => {
             if (!horariosReservados.includes(horario)) {
                 const opt = document.createElement('option');
@@ -187,29 +283,15 @@ document.addEventListener('DOMContentLoaded', async function() {
                 algumDisponivel = true;
             }
         });
+        
         if (!algumDisponivel) {
             const opt = document.createElement('option');
             opt.value = '';
             opt.textContent = 'Nenhum horário disponível';
             select.appendChild(opt);
         }
-    };
-});
-
-function selecionarHorario() {
-    const horarioSelect = document.getElementById('horarioSelect');
-    const horario = horarioSelect.value;
-    const diaSelecionado = window.diaSelecionadoCalendario;
-    if (!diaSelecionado) {
-        alert('Por favor, selecione um dia disponível primeiro.');
-        return;
+    } catch (error) {
+        console.error('Erro ao buscar horários:', error);
     }
-    if (!horario || horario === '' || horario === 'Nenhum horário disponível') {
-        alert('Por favor, selecione um horário disponível.');
-        return;
-    }
-    localStorage.setItem('dataSelecionada', diaSelecionado);
-    localStorage.setItem('horarioSelecionado', horario);
-    window.location.href = '/detalhes';
-}
+};
 </script>

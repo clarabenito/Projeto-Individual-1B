@@ -1,8 +1,55 @@
 const Booking = require('../models/Booking');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 const bookingController = {
     async create(req, res) {
         try {
+            const { user_id, room_id, data_inicio, data_fim } = req.body;
+
+            // Valida se o usuário existe
+            const user = await prisma.users.findUnique({
+                where: { id: user_id }
+            });
+
+            if (!user) {
+                return res.status(400).json({ error: 'Usuário não encontrado' });
+            }
+
+            // Valida se a sala existe
+            const room = await prisma.rooms.findUnique({
+                where: { id: room_id }
+            });
+
+            if (!room) {
+                return res.status(400).json({ error: 'Sala não encontrada' });
+            }
+
+            // Valida se já existe reserva no mesmo horário
+            const reservaExistente = await prisma.bookings.findFirst({
+                where: {
+                    room_id,
+                    OR: [
+                        {
+                            AND: [
+                                { data_inicio: { lte: new Date(data_inicio) } },
+                                { data_fim: { gt: new Date(data_inicio) } }
+                            ]
+                        },
+                        {
+                            AND: [
+                                { data_inicio: { lt: new Date(data_fim) } },
+                                { data_fim: { gte: new Date(data_fim) } }
+                            ]
+                        }
+                    ]
+                }
+            });
+
+            if (reservaExistente) {
+                return res.status(400).json({ error: 'Já existe uma reserva para este horário' });
+            }
+
             console.log('Tentando criar reserva:', req.body);
             const booking = await Booking.create(req.body);
             res.status(201).json(booking);

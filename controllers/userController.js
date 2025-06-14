@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 const userController = {
@@ -10,6 +11,23 @@ const userController = {
             console.error('Erro ao registrar usuário:', error);
             console.error('Erro detalhado:', error);
             res.status(500).json({ error: 'Erro ao registrar usuário' });
+        }
+    },
+
+    async login(req, res) {
+        const { email, senha } = req.body;
+        try {
+            const user = await User.findByEmail(email);
+            if (!user) {
+                return res.status(400).json({ error: 'Usuário não encontrado' });
+            }
+            const senhaCorreta = await bcrypt.compare(senha, user.senha);
+            if (!senhaCorreta) {
+                return res.status(401).json({ error: 'Senha incorreta' });
+            }
+            res.json({ id: user.id, nome: user.nome, email: user.email });
+        } catch (error) {
+            res.status(500).json({ error: 'Erro ao autenticar usuário' });
         }
     },
 

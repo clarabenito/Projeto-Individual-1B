@@ -11,6 +11,7 @@ model users {
   id        String    @id @default(uuid())
   nome      String
   email     String    @unique
+  senha     String?
   criado_em DateTime  @default(now()) @map("criado_em")
   bookings  bookings[]
 

@@ -19,6 +19,12 @@ app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+// Middleware para tratamento de erros
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Algo deu errado!' });
+});
+
 // Rotas
 app.get('/', (req, res) => {
     res.render('login', {
@@ -52,7 +58,7 @@ app.get('/sucesso', (req, res) => {
     });
 });
 
-// Rotas REST reais
+// Rotas REST
 const userRoutes = require('./routes/userRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
@@ -65,6 +71,11 @@ app.use('/api/bookings', bookingRoutes);
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Algo deu errado!' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 module.exports = app;

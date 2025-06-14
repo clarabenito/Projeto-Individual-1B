@@ -3,6 +3,8 @@
     --primary-color: #8D40A4;
     --primary-hover: #7A3790;
     --light-purple: #F5E6FF;
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
 }
 
 /* Estilos gerais */
@@ -10,6 +12,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #f8f9fa;
 }
 
 main {
@@ -32,75 +35,107 @@ main {
 }
 
 /* Calendário */
-.calendar {
+.calendar-container {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 20px;
+    overflow: hidden;
 }
 
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+.table th {
+    padding: 12px;
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: var(--light-purple);
+    border-bottom: 2px solid #dee2e6;
 }
 
-.calendar-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
+.table td {
+    padding: 15px;
+    height: 100px;
+    vertical-align: top;
+    position: relative;
+    border: 1px solid #dee2e6;
     transition: background-color 0.2s;
 }
 
-.calendar-day:hover {
-    background-color: var(--light-purple);
+.table td:hover {
+    background-color: #f8f9fa;
 }
 
-.calendar-day.available {
-    background-color: #E8F5E9;
+.dia-calendario {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
 }
 
-.calendar-day.unavailable {
-    background-color: #FFEBEE;
+.dia-calendario.disponivel {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.dia-calendario.indisponivel {
+    background-color: var(--danger-color);
+    color: white;
     cursor: not-allowed;
 }
 
-/* Cards de salas */
-.room-card {
-    margin-bottom: 20px;
-    transition: transform 0.2s;
+.dia-calendario.selecionado {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+    transform: scale(1.1);
 }
 
-.room-card:hover {
-    transform: translateY(-5px);
+.dia-calendario:hover:not(.indisponivel) {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.room-features {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
+.dia-vazio {
+    background: none;
+    cursor: default;
 }
 
-.room-feature {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #666;
-    font-size: 0.9em;
-}
-
-.room-feature i {
+/* Botões de navegação */
+.btn-outline-primary {
     color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Cards */
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: var(--light-purple);
+    border-bottom: none;
+    padding: 1rem;
 }
 
 /* Formulários */
@@ -109,9 +144,32 @@ main {
     box-shadow: 0 0 0 0.25rem rgba(141, 64, 164, 0.25);
 }
 
+.form-select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+}
+
 /* Footer */
 .footer {
     margin-top: auto;
     background-color: #f8f9fa;
     padding: 20px 0;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .calendar-container {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+    
+    .table td {
+        height: 80px;
+    }
+    
+    .dia-calendario {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
 }
