@@ -362,19 +362,20 @@ A API do BookNow segue o padrão REST e está documentada detalhadamente em: [Do
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 
-*VIDEO: Insira o link do vídeo demonstrativo nesta seção*
-*Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+🎥 [Clique para assistir o vídeo](../assets/VIDEO-2025-06-13-23-51-48.mp4)
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
-
+&emsp; Para meu próximo projeto, desejo ter mais organização e disciplina para cumprir prazos e compromissos de forma mais eficiente. Espero conquistar melhorias significativas tanto no âmbito pessoal quanto educacional, desenvolvendo habilidades que me tornem mais focada, responsável e preparada para novos desafios
 
 
 ## <a name="c5"></a>5. Referências
 
-_Incluir as principais referências de seu projeto, para que seu parceiro possa consultar caso ele se interessar em aprofundar. Um exemplo de referência de livro e de site:_<br>
+AFONSO BRANDÃO. MVC Boilerplate. Disponível em: https://github.com/afonsobrandaointeli/mvc-boilerplate/tree/main/documentos. Acesso em: 13 jun. 2025.
 
----
+Aulas da própria faculdade Inteli. Conteúdos de sala de aula, slides e materiais didáticos fornecidos pelos professores do Inteli, 2025.
+
+CANALTECH. Como citar e referenciar um site | Normas ABNT. Disponível em: https://canaltech.com.br/educacao/como-citar-e-referenciar-um-site-normas-abnt/. Acesso em: 13 jun. 2025.
+
+Mystudybay. Como fazer referência de site, citação de artigo online no texto nas normas ABNT. Disponível em: https://mystudybay.com.br/referencia-de-site/. Acesso em: 13 jun. 2025.
 ---
