@@ -377,5 +377,4 @@ Aulas da própria faculdade Inteli. Conteúdos de sala de aula, slides e materia
 
 CANALTECH. Como citar e referenciar um site | Normas ABNT. Disponível em: https://canaltech.com.br/educacao/como-citar-e-referenciar-um-site-normas-abnt/. Acesso em: 13 jun. 2025.
 
-Mystudybay. Como fazer referência de site, citação de artigo online no texto nas normas ABNT. Disponível em: https://mystudybay.com.br/referencia-de-site/. Acesso em: 13 jun. 2025.
 ---
