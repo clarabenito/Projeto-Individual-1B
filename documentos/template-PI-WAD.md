@@ -358,13 +358,13 @@ A API do BookNow segue o padrão REST e está documentada detalhadamente em: [Do
 
 ---
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web 
 
-### 4.1 Demonstração do Sistema Web (Semana 8)
+### 4.1 Demonstração do Sistema Web 
 
 🎥 [Clique para baixar e assistir o vídeo](../assets/VIDEO-2025-06-13-23-51-48.mp4)
 
-### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+### 4.2 Conclusões e Trabalhos Futuros
 
 &emsp; Para meu próximo projeto, desejo ter mais organização e disciplina para cumprir prazos e compromissos de forma mais eficiente. Espero conquistar melhorias significativas tanto no âmbito pessoal quanto educacional, desenvolvendo habilidades que me tornem mais focada, responsável e preparada para novos desafios
 
