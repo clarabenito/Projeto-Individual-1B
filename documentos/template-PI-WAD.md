@@ -362,7 +362,7 @@ A API do BookNow segue o padrão REST e está documentada detalhadamente em: [Do
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 
-🎥 [Clique para assistir o vídeo](../assets/VIDEO-2025-06-13-23-51-48.mp4)
+🎥 [Clique para baixar e assistir o vídeo](../assets/VIDEO-2025-06-13-23-51-48.mp4)
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
 
