@@ -375,6 +375,10 @@ AFONSO BRANDÃO. MVC Boilerplate. Disponível em: https://github.com/afonsobrand
 
 Aulas da própria faculdade Inteli. Conteúdos de sala de aula, slides e materiais didáticos fornecidos pelos professores do Inteli, 2025.
 
-CANALTECH. Como citar e referenciar um site | Normas ABNT. Disponível em: https://canaltech.com.br/educacao/como-citar-e-referenciar-um-site-normas-abnt/. Acesso em: 13 jun. 2025.
+MDN Web Docs – MVC Glossary
+Definição e exemplificação do padrão MVC, mostrando a separação entre Model, View e Controller. https://developer.mozilla.org/en-US/docs/Glossary/MVC
+
+NexWebsites – Web Database Design
+Boas práticas e princípios para o design de bancos de dados web, incluindo modelagem de dados e dicas para eficiência. https://nexwebsites.com/blog/web-database-design/
 
 ---
